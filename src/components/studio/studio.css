@@ -1,0 +1,111 @@
+/* Interactive objects inside the studio scene */
+.studio-obj {
+  cursor: pointer;
+  outline: none;
+}
+.studio-obj-body {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
+}
+.studio-obj:hover .studio-obj-body,
+.studio-obj:focus-visible .studio-obj-body {
+  transform: translateY(-7px) scale(1.04);
+  filter: drop-shadow(0 12px 14px rgba(120, 82, 20, 0.3));
+}
+.studio-obj:focus-visible {
+  outline: none;
+}
+
+/* Slightly fade explored objects so the unexplored ones invite attention */
+.studio-obj.is-visited .studio-obj-body { opacity: 0.82; }
+
+/* Highlight ring */
+.studio-ring {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.2s ease;
+}
+.studio-obj:hover .studio-ring,
+.studio-obj:focus-visible .studio-ring {
+  opacity: 0.9;
+  animation: ring-ping 1.4s ease-out infinite;
+}
+
+/* Guided hint — the next unexplored object pulses gently to draw the eye */
+.studio-obj.is-hint .studio-ring {
+  opacity: 0.75;
+  animation: ring-ping 1.6s ease-out infinite;
+}
+.studio-obj.is-hint .studio-obj-body {
+  animation: hint-bob 1.6s ease-in-out infinite;
+}
+
+/* Label tag reveals on hover / focus */
+.studio-tag {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+.studio-obj:hover .studio-tag,
+.studio-obj:focus-visible .studio-tag {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Keyframes ── */
+@keyframes ring-ping {
+  0% { transform: scale(0.96); opacity: 0.85; }
+  70% { transform: scale(1.12); opacity: 0; }
+  100% { transform: scale(1.12); opacity: 0; }
+}
+@keyframes hint-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes studio-sway {
+  0%, 100% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1.5deg); }
+}
+@keyframes studio-glow {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 0.9; }
+}
+@keyframes steam-rise {
+  0% { opacity: 0; transform: translateY(0) scaleX(1); }
+  40% { opacity: 0.5; }
+  100% { opacity: 0; transform: translateY(-22px) scaleX(1.4); }
+}
+@keyframes drift {
+  0% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-26px) translateX(12px); }
+  100% { transform: translateY(0) translateX(0); }
+}
+@keyframes loader-spin { to { transform: rotate(360deg); } }
+@keyframes lamp-flicker {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+
+.anim-sway { animation: studio-sway 7s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom center; }
+.anim-glow { animation: studio-glow 4.5s ease-in-out infinite; }
+.anim-steam { animation: steam-rise 3.5s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom center; }
+.anim-lamp { animation: lamp-flicker 5s ease-in-out infinite; }
+.anim-drift { animation: drift linear infinite; }
+.loader-ring { animation: loader-spin 0.9s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-sway, .anim-glow, .anim-steam, .anim-lamp, .anim-drift,
+  .studio-obj.is-hint .studio-ring, .studio-obj.is-hint .studio-obj-body,
+  .studio-obj:hover .studio-ring, .studio-obj:focus-visible .studio-ring {
+    animation: none;
+  }
+  .loader-ring { animation: loader-spin 0.9s linear infinite; } /* keep spinner legible */
+  .studio-obj:hover .studio-obj-body,
+  .studio-obj:focus-visible .studio-obj-body { transform: scale(1.02); }
+  .studio-obj.is-hint .studio-ring,
+  .studio-obj:hover .studio-ring,
+  .studio-obj:focus-visible .studio-ring { opacity: 0.9; }
+}
