@@ -56,7 +56,8 @@ export const profile = {
   phone: '+1 310-462-7354',
   linkedin: 'https://linkedin.com/in/snehal-gore',
   github: 'https://github.com/snehalgore1',
-  resumeFile: '/Snehal_Gore_Resume.pdf', // drop the PDF in /public with this name
+  // Base-aware so it works both in dev ("/") and on GitHub Pages ("/portfolio/").
+  resumeFile: `${import.meta.env.BASE_URL}Snehal_Gore_Resume.pdf`, // PDF lives in /public
 };
 
 export const nav: NavItem[] = [
