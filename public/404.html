@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lost in the studio · Snehal Gore</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23F4C542'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' font-family='Georgia,serif' fill='%232C2521'%3ESG%3C/text%3E%3C/svg%3E" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+    <style>
+      * { box-sizing: border-box; margin: 0; }
+      body {
+        min-height: 100svh;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        gap: 18px; padding: 24px; text-align: center;
+        background: radial-gradient(900px 400px at 70% -10%, #fff2c9, transparent 60%), #fffdf7;
+        color: #2c2521;
+        font-family: 'Inter', system-ui, sans-serif;
+      }
+      .code { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: #c89b19; }
+      h1 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: clamp(2rem, 6vw, 3.2rem); line-height: 1.1; }
+      p { max-width: 42ch; color: #6b4e3d; font-size: 1.05rem; line-height: 1.6; }
+      a.btn {
+        margin-top: 8px; display: inline-block;
+        background: #f4c542; color: #2c2521; font-weight: 600;
+        padding: 12px 24px; border-radius: 999px; text-decoration: none;
+        box-shadow: 0 10px 24px -10px rgba(200,155,25,0.8);
+        transition: transform 0.15s ease, background 0.15s ease;
+      }
+      a.btn:hover { transform: translateY(-2px); background: #e0b02f; }
+      svg { width: min(280px, 70vw); height: auto; }
+      @media (prefers-reduced-motion: reduce) { a.btn:hover { transform: none; } .steam { animation: none; } }
+      @keyframes steam { 0% { opacity: 0; transform: translateY(0); } 40% { opacity: .5; } 100% { opacity: 0; transform: translateY(-14px); } }
+      .steam { animation: steam 3s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom center; }
+    </style>
+  </head>
+  <body>
+    <svg viewBox="0 0 240 150" role="img" aria-label="A tipped-over coffee mug">
+      <ellipse cx="120" cy="132" rx="80" ry="10" fill="#7a5214" opacity="0.12" />
+      <g class="steam">
+        <path d="M150 70 q6 -8 0 -16" fill="none" stroke="#d9c48a" stroke-width="3" stroke-linecap="round" />
+        <path d="M164 70 q-6 -8 0 -16" fill="none" stroke="#d9c48a" stroke-width="3" stroke-linecap="round" />
+      </g>
+      <g transform="rotate(14 120 100)">
+        <rect x="86" y="78" width="70" height="46" rx="10" fill="#f4c542" />
+        <rect x="86" y="78" width="70" height="12" rx="6" fill="#e0b02f" />
+        <path d="M156 90 q26 3 0 30" fill="none" stroke="#e0b02f" stroke-width="8" />
+      </g>
+      <ellipse cx="120" cy="126" rx="34" ry="7" fill="#c98f38" opacity="0.55" />
+    </svg>
+    <p class="code">Error 404</p>
+    <h1>This page wandered off the desk.</h1>
+    <p>The link you followed doesn't exist in the studio — but everything else is just a click away.</p>
+    <a class="btn" href="/portfolio/">← Back to the studio</a>
+  </body>
+</html>

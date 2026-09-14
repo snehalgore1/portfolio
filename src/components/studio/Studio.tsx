@@ -80,6 +80,15 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
           <line x1="70" y1="145" x2="250" y2="145" stroke="#e0b02f" strokeWidth="4" />
         </g>
 
+        {/* Framed picture on the wall — a little sunny landscape */}
+        <g transform="translate(360 96)" filter="url(#soft)">
+          <rect x="0" y="0" width="120" height="92" rx="8" fill="#fffdf7" stroke="#c89b19" strokeWidth="4" />
+          <rect x="10" y="10" width="100" height="72" rx="4" fill="#ffeeb0" />
+          <path d="M10 70 q26 -26 50 -8 t50 -6 v16 h-100 z" fill="#9aa877" />
+          <path d="M10 74 q30 -14 52 -2 t48 -4 v14 h-100 z" fill="#78835a" />
+          <circle cx="34" cy="30" r="11" fill="#f4c542" />
+        </g>
+
         {/* Wall shelf + personality flavor */}
         <g filter="url(#soft)">
           <rect x="560" y="185" width="300" height="12" rx="4" fill="#b07c4d" />
@@ -118,6 +127,9 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
 
       {/* ══ MID LAYER — desk, lamp, floor plant ══ */}
       <g style={layer(12, 10)}>
+        {/* Soft rug grounds the scene */}
+        <ellipse cx="450" cy="520" rx="330" ry="40" fill="#f4c542" opacity="0.28" />
+        <ellipse cx="450" cy="520" rx="250" ry="28" fill="none" stroke="#e0b02f" strokeWidth="3" opacity="0.4" />
         {/* Desk shadow on floor */}
         <ellipse cx="450" cy="470" rx="410" ry="26" fill="#7a5214" opacity="0.12" />
 

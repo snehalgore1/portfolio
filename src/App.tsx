@@ -3,7 +3,7 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { Experience } from './components/Experience';
-import { FeaturedProjects } from './components/FeaturedProjects';
+import { Projects } from './components/Projects';
 import { Personal } from './components/Personal';
 import { Footer } from './components/Footer';
 import { AppLoader } from './components/ui/AppLoader';
@@ -73,7 +73,7 @@ export default function App() {
         />
         <About />
         <Experience />
-        <FeaturedProjects />
+        <Projects />
         <Personal />
         <Footer />
       </main>

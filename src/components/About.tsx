@@ -1,9 +1,11 @@
 import { profile, skills, education } from '../data/portfolio';
+import { useReveal } from '../hooks/useReveal';
 
 export function About() {
+  const { ref, shown } = useReveal<HTMLDivElement>();
   return (
     <section id="about" className="scroll-mt-20 bg-cream/50 py-20 sm:py-24">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+      <div ref={ref} className={`reveal ${shown ? 'reveal-in' : ''} mx-auto max-w-6xl px-5 sm:px-8`}>
         <p className="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-gold">About</p>
         <div className="grid gap-10 lg:grid-cols-[1.3fr_1fr]">
           <div>

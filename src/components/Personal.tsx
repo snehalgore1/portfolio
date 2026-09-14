@@ -1,4 +1,5 @@
 import { personal } from '../data/portfolio';
+import { useReveal } from '../hooks/useReveal';
 
 const icons: Record<string, React.ReactNode> = {
   soccer: (
@@ -27,10 +28,11 @@ const icons: Record<string, React.ReactNode> = {
 };
 
 export function Personal() {
+  const { ref, shown } = useReveal<HTMLDivElement>();
   return (
     <section aria-labelledby="personal-heading" className="bg-cream/50 py-16">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="rounded-3xl border border-butter/50 bg-ivory p-8 sm:p-10">
+        <div ref={ref} className={`reveal ${shown ? 'reveal-in' : ''} rounded-3xl border border-butter/50 bg-ivory p-8 sm:p-10`}>
           <p className="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-sage">Off the clock</p>
           <h2 id="personal-heading" className="font-serif text-2xl font-semibold text-espresso sm:text-3xl">
             {personal.heading}
