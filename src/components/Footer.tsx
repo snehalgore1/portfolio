@@ -73,7 +73,16 @@ export function Footer() {
           </div>
 
           <p className="mt-12 font-mono text-xs text-cocoa/60">
-            © {new Date().getFullYear()} {profile.name} · Built in a little yellow studio.
+            © {new Date().getFullYear()} {profile.name} · Built in a little yellow studio.{' '}
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event('open-terminal'))}
+              aria-label="Open the hidden terminal"
+              title="psst… try me (or press the ` key)"
+              className="ml-1 rounded px-1 text-gold transition-colors hover:bg-espresso hover:text-ivory"
+            >
+              &gt;<span className="cursor-blink">_</span>
+            </button>
           </p>
         </div>
       </footer>

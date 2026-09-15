@@ -4,10 +4,12 @@ import { useActiveSection } from '../hooks/useActiveSection';
 
 const SECTION_IDS = nav.map((n) => n.href.replace('#', ''));
 
-export function Navbar() {
+export function Navbar({ dusk = false }: { dusk?: boolean }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const active = useActiveSection(SECTION_IDS);
+  // Over the dark dusk hero (before the bar gets its light glass), flip to light text.
+  const dark = dusk && !scrolled;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -30,7 +32,9 @@ export function Navbar() {
       >
         <a
           href="#top"
-          className="group flex items-baseline gap-2 font-serif text-xl font-semibold tracking-tight text-espresso"
+          className={`group flex items-baseline gap-2 font-serif text-xl font-semibold tracking-tight transition-colors duration-500 ${
+            dark ? 'text-ivory' : 'text-espresso'
+          }`}
         >
           {profile.name}
           <span className="hidden text-[10px] font-sans font-semibold uppercase tracking-[0.18em] text-gold sm:inline">
@@ -48,13 +52,15 @@ export function Navbar() {
                   href={item.href}
                   aria-current={isActive ? 'true' : undefined}
                   className={`relative rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300 ${
-                    isActive ? 'text-espresso' : 'text-cocoa hover:text-espresso'
+                    dark
+                      ? isActive ? 'text-ivory' : 'text-cream/70 hover:text-ivory'
+                      : isActive ? 'text-espresso' : 'text-cocoa hover:text-espresso'
                   }`}
                 >
                   {isActive && (
                     <span
                       aria-hidden="true"
-                      className="absolute inset-0 -z-10 rounded-full bg-butter/25"
+                      className={`absolute inset-0 -z-10 rounded-full ${dark ? 'bg-white/15' : 'bg-butter/25'}`}
                     />
                   )}
                   {item.label}
@@ -65,7 +71,9 @@ export function Navbar() {
           <li>
             <a
               href={profile.resumeFile}
-              className="ml-2 rounded-full bg-espresso px-5 py-2 text-sm font-semibold text-ivory shadow-[var(--shadow-sm)] transition-all duration-300 hover:shadow-[var(--shadow-md)] hover:brightness-110"
+              className={`ml-2 rounded-full px-5 py-2 text-sm font-semibold shadow-[var(--shadow-sm)] transition-all duration-300 hover:shadow-[var(--shadow-md)] hover:brightness-110 ${
+                dark ? 'bg-butter text-espresso' : 'bg-espresso text-ivory'
+              }`}
             >
               Resume
             </a>
@@ -75,7 +83,9 @@ export function Navbar() {
         {/* Mobile toggle */}
         <button
           type="button"
-          className="flex h-10 w-10 items-center justify-center rounded-full text-espresso transition-colors hover:bg-cream md:hidden"
+          className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors md:hidden ${
+            dark ? 'text-ivory hover:bg-white/10' : 'text-espresso hover:bg-cream'
+          }`}
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? 'Close menu' : 'Open menu'}

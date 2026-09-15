@@ -6,10 +6,14 @@ interface StudioProps {
   onOpen: (id: SectionId) => void;
   visited: Set<SectionId>;
   hintId: SectionId | null;
+  /** Object to spotlight (e.g. hovered legend chip). */
+  spotlightId?: SectionId | null;
   /** Normalized pointer offset (-1..1) for parallax. */
   parallax: { x: number; y: number };
   easterEggUnlocked: boolean;
   onEasterEgg: () => void;
+  /** Evening mode. */
+  dusk?: boolean;
 }
 
 /**
@@ -19,11 +23,13 @@ interface StudioProps {
  * easter egg once every section has been explored. All of it is enhancement -
  * the Navbar and full page below are the guaranteed way to navigate.
  */
-export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, onEasterEgg }: StudioProps) {
+export function Studio({ onOpen, visited, hintId, spotlightId, parallax, easterEggUnlocked, onEasterEgg, dusk }: StudioProps) {
   const layer = (mx: number, my: number) => ({
     transform: `translate(${parallax.x * mx}px, ${parallax.y * my}px)`,
     transition: 'transform 0.2s ease-out',
   });
+  // An object glows if it's the guided hint OR the hovered legend chip.
+  const lit = (id: SectionId) => hintId === id || spotlightId === id;
 
   return (
     <svg
@@ -68,14 +74,28 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
       <g style={layer(6, 6)}>
         <rect x="-40" y="0" width="980" height="440" fill="url(#wall)" />
         <rect x="-40" y="430" width="980" height="180" fill="url(#floor)" />
-        <circle cx="180" cy="150" r="160" fill="url(#sun)" className="anim-glow" />
+        <circle cx="180" cy="150" r="160" fill="url(#sun)" className="anim-glow" style={{ opacity: dusk ? 0.15 : undefined, transition: 'opacity 0.7s ease' }} />
 
         {/* Window */}
         <g filter="url(#soft)">
           <rect x="70" y="70" width="180" height="150" rx="10" fill="#fffdf7" stroke="#e0b02f" strokeWidth="4" />
-          <rect x="80" y="80" width="160" height="130" rx="6" fill="#ffeeb0" />
-          <circle cx="160" cy="120" r="26" fill="#f4c542" />
-          <path d="M118 150q22-26 44 0t44 0" fill="none" stroke="#fffdf7" strokeWidth="6" strokeLinecap="round" opacity="0.8" />
+          <rect x="80" y="80" width="160" height="130" rx="6" fill={dusk ? '#3a3a5c' : '#ffeeb0'} style={{ transition: 'fill 0.7s ease' }} />
+          {dusk ? (
+            <>
+              {/* Moon + stars */}
+              <circle cx="160" cy="118" r="22" fill="#f5f0dc" />
+              <circle cx="150" cy="112" r="22" fill="#3a3a5c" />
+              <circle cx="110" cy="105" r="1.8" fill="#fff8d9" className="anim-twinkle" />
+              <circle cx="205" cy="120" r="1.6" fill="#fff8d9" className="anim-twinkle" style={{ animationDelay: '0.8s' }} />
+              <circle cx="120" cy="165" r="1.5" fill="#fff8d9" className="anim-twinkle" style={{ animationDelay: '1.6s' }} />
+              <circle cx="200" cy="170" r="1.7" fill="#fff8d9" className="anim-twinkle" style={{ animationDelay: '2.2s' }} />
+            </>
+          ) : (
+            <>
+              <circle cx="160" cy="120" r="26" fill="#f4c542" />
+              <path d="M118 150q22-26 44 0t44 0" fill="none" stroke="#fffdf7" strokeWidth="6" strokeLinecap="round" opacity="0.8" />
+            </>
+          )}
           <line x1="160" y1="70" x2="160" y2="220" stroke="#e0b02f" strokeWidth="4" />
           <line x1="70" y1="145" x2="250" y2="145" stroke="#e0b02f" strokeWidth="4" />
         </g>
@@ -125,6 +145,12 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
         </g>
       </g>
 
+      {/* Dusk tint - dims the wall so the desk lamp reads cozy at night */}
+      <rect
+        x="-40" y="0" width="980" height="610" fill="#241b33"
+        style={{ opacity: dusk ? 0.5 : 0, transition: 'opacity 0.7s ease', pointerEvents: 'none' }}
+      />
+
       {/* ══ MID LAYER - desk, lamp, floor plant ══ */}
       <g style={layer(12, 10)}>
         {/* Soft rug grounds the scene */}
@@ -135,6 +161,9 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
 
         {/* Desk lamp (left) with warm pool of light */}
         <g transform="translate(150 250)">
+          {dusk && (
+            <ellipse className="anim-lamp" cx="30" cy="175" rx="150" ry="55" fill="url(#lampGlow)" style={{ mixBlendMode: 'screen' }} />
+          )}
           <ellipse className="anim-lamp" cx="30" cy="175" rx="120" ry="40" fill="url(#lampGlow)" />
           <rect x="24" y="150" width="14" height="20" rx="3" fill="#6b4e3d" />
           <rect x="4" y="168" width="54" height="8" rx="4" fill="#6b4e3d" />
@@ -170,7 +199,7 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
           <ellipse cx="34" cy="22" rx="40" ry="16" fill="#d9a441" />
           <path d="M8 20 q-6 -10 2 -16 q6 8 10 10 z" fill="#d9a441" />
           <ellipse cx="34" cy="20" rx="30" ry="11" fill="#e6b455" />
-          <circle cx="8" cy="16" r="2.2" fill="#6b4e3d" />
+          <circle className="anim-catblink" cx="8" cy="16" r="2.2" fill="#6b4e3d" />
           <path d="M2 6 l4 8 4 -6 z" fill="#c98f38" />
           <path d="M64 24 q10 -2 8 6" fill="none" stroke="#d9a441" strokeWidth="5" strokeLinecap="round" />
           <path d="M18 18 q-6 1 -10 0 M18 22 q-6 2 -10 2" stroke="#6b4e3d" strokeWidth="0.8" opacity="0.6" />
@@ -187,7 +216,7 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
           tagY={368}
           box={{ x: 140, y: 378, w: 124, h: 52 }}
           visited={visited.has('about')}
-          hint={hintId === 'about'}
+          hint={lit('about')}
           onActivate={() => onOpen('about')}
         >
           <g transform="translate(150 392) rotate(-4)">
@@ -208,7 +237,7 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
           tagY={380}
           box={{ x: 280, y: 392, w: 100, h: 70 }}
           visited={visited.has('contact')}
-          hint={hintId === 'contact'}
+          hint={lit('contact')}
           onActivate={() => onOpen('contact')}
         >
           <g transform="translate(285 396)">
@@ -226,19 +255,20 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
           tagY={278}
           box={{ x: 332, y: 296, w: 244, h: 150 }}
           visited={visited.has('projects')}
-          hint={hintId === 'projects'}
+          hint={lit('projects')}
           onActivate={() => onOpen('projects')}
         >
           <g transform="translate(360 300)">
             <rect x="0" y="0" width="190" height="120" rx="10" fill="#2c2521" />
             <rect x="8" y="8" width="174" height="104" rx="6" fill="url(#screen)" />
-            <g className="anim-glow">
-              <rect x="20" y="22" width="70" height="8" rx="4" fill="#f4c542" />
-              <rect x="20" y="38" width="110" height="6" rx="3" fill="#78835a" />
-              <rect x="34" y="52" width="90" height="6" rx="3" fill="#c89b19" />
-              <rect x="34" y="66" width="70" height="6" rx="3" fill="#6b4e3d" />
-              <rect x="20" y="80" width="120" height="6" rx="3" fill="#fff8d9" opacity="0.5" />
-              <rect x="20" y="94" width="50" height="6" rx="3" fill="#f4c542" />
+            <g>
+              <rect className="type-line type-1" x="20" y="22" height="8" rx="4" fill="#f4c542" />
+              <rect className="type-line type-2" x="20" y="38" height="6" rx="3" fill="#78835a" />
+              <rect className="type-line type-3" x="34" y="52" height="6" rx="3" fill="#c89b19" />
+              <rect className="type-line type-4" x="34" y="66" height="6" rx="3" fill="#6b4e3d" />
+              <rect className="type-line type-5" x="20" y="80" height="6" rx="3" fill="#fff8d9" opacity="0.5" />
+              {/* blinking cursor caret */}
+              <rect className="anim-caret" x="74" y="93" width="7" height="8" rx="1" fill="#f4c542" />
             </g>
             <path d="M-14 120 H204 L214 138 H-24 Z" fill="#cf9a63" />
             <rect x="-24" y="136" width="238" height="6" rx="3" fill="#8f6238" />
@@ -285,7 +315,7 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
           tagY={368}
           box={{ x: 628, y: 386, w: 118, h: 74 }}
           visited={visited.has('experience')}
-          hint={hintId === 'experience'}
+          hint={lit('experience')}
           onActivate={() => onOpen('experience')}
         >
           <g transform="translate(635 392) rotate(3)">
@@ -306,7 +336,7 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
           tagY={314}
           box={{ x: 754, y: 330, w: 92, h: 98 }}
           visited={visited.has('resume')}
-          hint={hintId === 'resume'}
+          hint={lit('resume')}
           onActivate={() => onOpen('resume')}
         >
           <g transform="translate(760 336)">

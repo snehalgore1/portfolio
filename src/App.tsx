@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
+import { MotionConfig } from 'motion/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { Experience } from './components/Experience';
+import { Stats } from './components/Stats';
 import { Projects } from './components/Projects';
 import { Personal } from './components/Personal';
 import { Footer } from './components/Footer';
 import { AppLoader } from './components/ui/AppLoader';
 import { StudioModal } from './components/studio/StudioModal';
-import { StudioEasterEgg } from './components/studio/StudioEasterEgg';
+import { MiniTerminal } from './components/MiniTerminal';
 import { sectionOrder, type SectionId } from './components/studio/sections';
 
 const reduceMotion = () =>
@@ -21,7 +23,8 @@ export default function App() {
   const [visited, setVisited] = useState<Set<SectionId>>(new Set());
   const [activeModal, setActiveModal] = useState<SectionId | null>(null);
   const [eggUnlocked, setEggUnlocked] = useState(false);
-  const [eggOpen, setEggOpen] = useState(false);
+  const [terminalOpen, setTerminalOpen] = useState(false);
+  const [dusk, setDusk] = useState(false);
 
   // Intro loader - brief, and instant under reduced-motion.
   useEffect(() => {
@@ -33,17 +36,36 @@ export default function App() {
 
   // Lock background scroll while an overlay is open.
   useEffect(() => {
-    const open = activeModal !== null || eggOpen;
+    const open = activeModal !== null || terminalOpen;
     document.body.style.overflow = open ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
-  }, [activeModal, eggOpen]);
+  }, [activeModal, terminalOpen]);
+
+  // Global shortcuts: backtick opens the hidden terminal. A window event lets
+  // any component (e.g. the footer hint, the studio mug) open it too.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const typing = e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement;
+      if (e.key === '`' && !typing) {
+        e.preventDefault();
+        setTerminalOpen((v) => !v);
+      }
+    };
+    const onOpen = () => setTerminalOpen(true);
+    document.addEventListener('keydown', onKey);
+    window.addEventListener('open-terminal', onOpen);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      window.removeEventListener('open-terminal', onOpen);
+    };
+  }, []);
 
   const openModal = (id: SectionId) => {
     setActiveModal(id);
     setVisited((prev) => (prev.has(id) ? prev : new Set(prev).add(id)));
   };
 
-  // Unlock the easter egg once every section has been explored.
+  // Unlock the studio's hidden terminal once every section has been explored.
   useEffect(() => {
     if (visited.size >= sectionOrder.length && !eggUnlocked) {
       setEggUnlocked(true);
@@ -59,20 +81,23 @@ export default function App() {
   }, [visited, eggUnlocked]);
 
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       {loading && <AppLoader leaving={leaving} />}
 
       <a href="#main" className="sr-only skip-link">Skip to main content</a>
-      <Navbar />
+      <Navbar dusk={dusk} />
       <main id="main">
         <Hero
           onOpen={openModal}
           visited={visited}
           easterEggUnlocked={eggUnlocked}
-          onEasterEgg={() => setEggOpen(true)}
+          onEasterEgg={() => setTerminalOpen(true)}
+          dusk={dusk}
+          onToggleDusk={() => setDusk((v) => !v)}
         />
         <About />
         <Experience />
+        <Stats />
         <Projects />
         <Personal />
         <Footer />
@@ -86,7 +111,7 @@ export default function App() {
         />
       )}
 
-      {eggOpen && <StudioEasterEgg onClose={() => setEggOpen(false)} />}
-    </>
+      {terminalOpen && <MiniTerminal onClose={() => setTerminalOpen(false)} />}
+    </MotionConfig>
   );
 }
