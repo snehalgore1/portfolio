@@ -45,10 +45,10 @@ function ProjectCard({ p }: { p: Project }) {
 
   return (
     <article
-      className={`flex flex-col rounded-2xl border bg-cream/60 p-6 transition-all ${
+      className={`flex flex-col rounded-2xl border bg-cream/60 p-6 transition-all duration-500 ease-out ${
         open
-          ? 'border-gold shadow-[var(--shadow-studio)] sm:col-span-2 lg:col-span-3'
-          : 'border-butter/50 hover:-translate-y-1 hover:border-gold hover:shadow-[var(--shadow-studio)]'
+          ? 'border-gold shadow-[var(--shadow-lg)] sm:col-span-2 lg:col-span-3'
+          : 'border-butter/50 hover:-translate-y-1.5 hover:border-gold hover:shadow-[var(--shadow-lg)]'
       }`}
     >
       <div className="mb-3 flex items-center justify-between gap-2">
@@ -89,7 +89,7 @@ function ProjectCard({ p }: { p: Project }) {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls={panelId}
-          className="inline-flex items-center gap-1.5 rounded-full bg-butter px-4 py-2 text-sm font-semibold text-espresso transition-transform hover:-translate-y-0.5 hover:bg-butter-deep"
+          className="inline-flex items-center gap-1.5 rounded-full bg-butter px-4 py-2 text-sm font-semibold text-espresso transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-butter-deep hover:shadow-[var(--shadow-sm)]"
         >
           {open ? 'Show less' : 'Read the case study'}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true" className={`transition-transform ${open ? 'rotate-180' : ''}`}>
@@ -125,11 +125,11 @@ export function Projects() {
   );
 
   return (
-    <section id="projects" className="scroll-mt-20 py-20 sm:py-24">
+    <section id="projects" className="scroll-mt-20 py-24 sm:py-36">
       <div ref={ref} className={`reveal ${shown ? 'reveal-in' : ''} mx-auto max-w-6xl px-5 sm:px-8`}>
         <div className="mb-8">
           <p className="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-gold">Selected work</p>
-          <h2 className="font-serif text-3xl font-semibold text-espresso sm:text-4xl">
+          <h2 className="font-serif text-[2rem] font-semibold leading-[1.08] text-espresso sm:text-5xl">
             Things I've actually built
           </h2>
           <p className="mt-3 max-w-xl text-cocoa">
@@ -150,10 +150,10 @@ export function Projects() {
                 role="tab"
                 aria-selected={active}
                 onClick={() => setFilter(c)}
-                className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                className={`rounded-full px-4 py-2 text-sm font-semibold transition-all duration-300 ease-out ${
                   active
-                    ? 'bg-espresso text-ivory'
-                    : 'border-2 border-espresso/15 text-cocoa hover:border-gold'
+                    ? 'bg-espresso text-ivory shadow-[var(--shadow-sm)]'
+                    : 'border border-espresso/15 text-cocoa hover:border-gold hover:bg-cream/60'
                 }`}
               >
                 {c} <span className={active ? 'text-ivory/60' : 'text-cocoa/50'}>{count}</span>

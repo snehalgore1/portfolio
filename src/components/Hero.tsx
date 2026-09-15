@@ -58,15 +58,15 @@ export function Hero({ onOpen, visited, easterEggUnlocked, onEasterEgg }: HeroPr
       <div aria-hidden="true" className="pointer-events-none absolute -top-32 right-0 h-[560px] w-[560px] rounded-full bg-butter/25 blur-3xl" />
 
       {/* Copy */}
-      <div className="relative z-10 mb-1 text-center">
-        <p className="mb-2 inline-flex items-center gap-2 rounded-full bg-cream px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-cocoa">
-          <span className="inline-block h-2 w-2 rounded-full bg-sage" /> {profile.location}
+      <div className="relative z-10 mb-2 text-center">
+        <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-butter/40 bg-cream/70 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-cocoa backdrop-blur-sm">
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-sage" /> {profile.location}
         </p>
-        <h1 id="hero-heading" className="font-serif text-4xl font-semibold leading-[1.05] tracking-tight text-espresso sm:text-5xl">
+        <h1 id="hero-heading" className="font-serif text-[2.75rem] font-semibold leading-[1.02] tracking-[-0.02em] text-espresso sm:text-6xl">
           {profile.name}
         </h1>
-        <p className="mt-1 font-serif text-xl italic text-gold sm:text-2xl">{profile.role}</p>
-        <p className="mx-auto mt-2 max-w-lg text-sm leading-relaxed text-cocoa sm:text-base">
+        <p className="mt-2 font-serif text-xl italic text-gold sm:text-2xl">{profile.role}</p>
+        <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-cocoa">
           {profile.positioning}
         </p>
       </div>
@@ -89,13 +89,13 @@ export function Hero({ onOpen, visited, easterEggUnlocked, onEasterEgg }: HeroPr
           <button
             type="button"
             onClick={() => scrollToSection('projects')}
-            className="rounded-full bg-butter px-6 py-3 text-sm font-semibold text-espresso shadow-[0_10px_24px_-10px_rgba(200,155,25,0.8)] transition-transform hover:-translate-y-0.5 hover:bg-butter-deep"
+            className="rounded-full bg-espresso px-6 py-3 text-sm font-semibold text-ivory shadow-[var(--shadow-md)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[var(--shadow-lg)] hover:brightness-110"
           >
             Explore my work →
           </button>
           <a
             href={profile.resumeFile}
-            className="rounded-full border-2 border-espresso/15 bg-ivory px-6 py-3 text-sm font-semibold text-espresso transition-colors hover:border-gold"
+            className="rounded-full border border-espresso/15 bg-ivory/70 px-6 py-3 text-sm font-semibold text-espresso backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-gold"
           >
             View résumé
           </a>

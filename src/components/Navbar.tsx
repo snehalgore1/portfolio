@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
 import { profile, nav } from '../data/portfolio';
+import { useActiveSection } from '../hooks/useActiveSection';
+
+const SECTION_IDS = nav.map((n) => n.href.replace('#', ''));
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const active = useActiveSection(SECTION_IDS);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -14,8 +18,10 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled ? 'bg-ivory/85 backdrop-blur border-b border-butter/40' : 'bg-transparent'
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? 'border-b border-butter/30 bg-ivory/70 backdrop-blur-xl backdrop-saturate-150'
+          : 'border-b border-transparent bg-transparent'
       }`}
     >
       <nav
@@ -24,30 +30,42 @@ export function Navbar() {
       >
         <a
           href="#top"
-          className="font-serif text-xl font-semibold text-espresso tracking-tight"
+          className="group flex items-baseline gap-2 font-serif text-xl font-semibold tracking-tight text-espresso"
         >
           {profile.name}
-          <span className="ml-2 hidden align-middle text-[10px] font-sans font-semibold uppercase tracking-[0.18em] text-gold sm:inline">
+          <span className="hidden text-[10px] font-sans font-semibold uppercase tracking-[0.18em] text-gold sm:inline">
             {profile.role}
           </span>
         </a>
 
         {/* Desktop nav */}
-        <ul className="hidden items-center gap-1 md:flex">
-          {nav.map((item) => (
-            <li key={item.href}>
-              <a
-                href={item.href}
-                className="rounded-full px-4 py-2 text-sm font-medium text-cocoa transition-colors hover:bg-cream hover:text-espresso"
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
+        <ul className="hidden items-center gap-0.5 md:flex">
+          {nav.map((item) => {
+            const isActive = active === item.href.replace('#', '');
+            return (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  aria-current={isActive ? 'true' : undefined}
+                  className={`relative rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300 ${
+                    isActive ? 'text-espresso' : 'text-cocoa hover:text-espresso'
+                  }`}
+                >
+                  {isActive && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 -z-10 rounded-full bg-butter/25"
+                    />
+                  )}
+                  {item.label}
+                </a>
+              </li>
+            );
+          })}
           <li>
             <a
               href={profile.resumeFile}
-              className="ml-2 rounded-full bg-butter px-5 py-2 text-sm font-semibold text-espresso shadow-sm transition-transform hover:-translate-y-0.5 hover:bg-butter-deep"
+              className="ml-2 rounded-full bg-espresso px-5 py-2 text-sm font-semibold text-ivory shadow-[var(--shadow-sm)] transition-all duration-300 hover:shadow-[var(--shadow-md)] hover:brightness-110"
             >
               Resume
             </a>
@@ -57,7 +75,7 @@ export function Navbar() {
         {/* Mobile toggle */}
         <button
           type="button"
-          className="flex h-10 w-10 items-center justify-center rounded-full text-espresso hover:bg-cream md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-full text-espresso transition-colors hover:bg-cream md:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? 'Close menu' : 'Open menu'}
@@ -75,24 +93,30 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div id="mobile-menu" className="border-t border-butter/40 bg-ivory/95 backdrop-blur md:hidden">
+        <div id="mobile-menu" className="border-t border-butter/30 bg-ivory/95 backdrop-blur-xl md:hidden">
           <ul className="mx-auto flex max-w-6xl flex-col px-5 py-3">
-            {nav.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="block rounded-lg px-3 py-3 text-base font-medium text-cocoa hover:bg-cream hover:text-espresso"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
+            {nav.map((item) => {
+              const isActive = active === item.href.replace('#', '');
+              return (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    aria-current={isActive ? 'true' : undefined}
+                    className={`block rounded-lg px-3 py-3 text-base font-medium transition-colors ${
+                      isActive ? 'bg-butter/20 text-espresso' : 'text-cocoa hover:bg-cream hover:text-espresso'
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              );
+            })}
             <li className="pt-2">
               <a
                 href={profile.resumeFile}
                 onClick={() => setOpen(false)}
-                className="block rounded-full bg-butter px-5 py-3 text-center text-base font-semibold text-espresso"
+                className="block rounded-full bg-espresso px-5 py-3 text-center text-base font-semibold text-ivory"
               >
                 View Resume
               </a>

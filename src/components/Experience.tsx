@@ -4,10 +4,10 @@ import { useReveal } from '../hooks/useReveal';
 export function Experience() {
   const { ref, shown } = useReveal<HTMLDivElement>();
   return (
-    <section id="experience" className="scroll-mt-20 py-20 sm:py-24">
+    <section id="experience" className="scroll-mt-20 py-24 sm:py-36">
       <div ref={ref} className={`reveal ${shown ? 'reveal-in' : ''} mx-auto max-w-6xl px-5 sm:px-8`}>
         <p className="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-gold">Experience</p>
-        <h2 className="font-serif text-3xl font-semibold text-espresso sm:text-4xl">
+        <h2 className="font-serif text-[2rem] font-semibold leading-[1.08] text-espresso sm:text-5xl">
           Where I've shipped
         </h2>
 
