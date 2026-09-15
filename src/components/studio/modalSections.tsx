@@ -92,7 +92,7 @@ function Resume() {
     <div>
       <ModalHeading eyebrow="Résumé" title="The one-page version" />
       <p className="text-sm leading-relaxed text-cocoa">
-        Everything here, condensed and printable — never buried behind the studio.
+        Everything here, condensed and printable, never buried behind the studio.
       </p>
       <div className="mt-5 flex flex-wrap gap-2">
         <a

@@ -23,7 +23,7 @@ export default function App() {
   const [eggUnlocked, setEggUnlocked] = useState(false);
   const [eggOpen, setEggOpen] = useState(false);
 
-  // Intro loader — brief, and instant under reduced-motion.
+  // Intro loader - brief, and instant under reduced-motion.
   useEffect(() => {
     const hold = reduceMotion() ? 0 : 850;
     const t1 = setTimeout(() => setLeaving(true), hold);

@@ -46,7 +46,7 @@ export function StudioModal({ active, onClose, onNavigate }: StudioModalProps) {
         ref={trapRef}
         role="dialog"
         aria-modal="true"
-        aria-label={`${labelFor(active)} — quick view`}
+        aria-label={`${labelFor(active)}: quick view`}
         tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
         className="relative z-10 w-full max-w-md overflow-hidden rounded-3xl border border-butter/60 bg-ivory shadow-[0_30px_60px_-20px_rgba(120,82,20,0.5)]"

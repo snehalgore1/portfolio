@@ -8,7 +8,7 @@ interface Box {
 }
 
 interface StudioObjectProps {
-  /** Accessible name, e.g. "Projects — my technical work" */
+  /** Accessible name, e.g. "Projects - my technical work" */
   label: string;
   /** Short tag shown on hover/focus above the object */
   tag: string;
@@ -17,16 +17,16 @@ interface StudioObjectProps {
   /** Bounding box (SVG coords) for the highlight ring / hint / visited badge */
   box: Box;
   onActivate: () => void;
-  /** Already explored — shows a small check and dims slightly */
+  /** Already explored - shows a small check and dims slightly */
   visited?: boolean;
-  /** Guided hint — pulses to point the visitor here next */
+  /** Guided hint - pulses to point the visitor here next */
   hint?: boolean;
   children: ReactNode;
 }
 
 /**
  * A clickable, keyboard-focusable object inside the studio SVG.
- * Objects are *flavor* — real navigation always exists in the Navbar, so this is
+ * Objects are *flavor* - real navigation always exists in the Navbar, so this is
  * progressive enhancement. On hover/focus: bounce + pulsing ring + label tag.
  */
 export function StudioObject({
@@ -58,7 +58,7 @@ export function StudioObject({
     >
       <title>{label}</title>
 
-      {/* Highlight ring — appears on hover/focus, or pulses when hinted */}
+      {/* Highlight ring - appears on hover/focus, or pulses when hinted */}
       <rect
         className="studio-ring"
         x={box.x}

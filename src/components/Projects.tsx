@@ -133,7 +133,7 @@ export function Projects() {
             Things I've actually built
           </h2>
           <p className="mt-3 max-w-xl text-cocoa">
-            Real systems — distributed backends, inference runtimes, and ML infrastructure. Open any card
+            Real systems: distributed backends, inference runtimes, and ML infrastructure. Open any card
             for the full case study.
           </p>
         </div>

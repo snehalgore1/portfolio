@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────
 //  SINGLE SOURCE OF TRUTH for Snehal's portfolio.
-//  Edit content here — every section reads from this file.
+//  Edit content here - every section reads from this file.
 //  Facts sourced from Snehal's resume + GitHub. Do not invent metrics.
 // ─────────────────────────────────────────────────────────────
 
@@ -46,13 +46,13 @@ export const profile = {
   role: 'AI / ML Engineer',
   // One concise positioning line for the hero.
   positioning:
-    'I build and ship production ML systems — from distributed backends to inference runtimes that run on a million-plus devices.',
+    'I build and ship production ML systems, from distributed backends to inference runtimes that run on more than a million devices.',
   // A tiny playful technical aside for the hero.
   nowNote: 'Currently: writing CUDA kernels, and learning pickleball.',
   location: 'Los Angeles, CA',
   summary:
-    "Software engineer with 2.5+ years shipping production systems, finishing an M.S. in Computer Science (AI) at USC in December 2026. I work across backend services, distributed systems, and AI/ML infrastructure — the kind of work where something real has to run, stay up, and stay fast.",
-  email: 'ssgore@usc.edu',
+    "Software engineer with 2.5+ years shipping production systems, finishing an M.S. in Computer Science (AI) at USC in December 2026. I work across backend services, distributed systems, and AI/ML infrastructure: the kind of work where something real has to run, stay up, and stay fast.",
+  email: 'ssgore18@gmail.com',
   phone: '+1 310-462-7354',
   linkedin: 'https://linkedin.com/in/snehal-gore',
   github: 'https://github.com/snehalgore1',
@@ -78,7 +78,7 @@ export const experience: ExperienceItem[] = [
     bullets: [
       'Architected and deployed AiSnap, a production AI microservice using Gemini function calling over live PostgreSQL data spanning 112 ORM entities; exposed database-grounded tools through a NestJS API layer.',
       'Built a validation and grounding pipeline that detected responses lacking query provenance and triggered tool-grounded regeneration, improving reliability for financial queries.',
-      'Built and shipped backend features end to end — database migrations, administrative workflows, and payment-processing logic integrated into the production billing pipeline.',
+      'Built and shipped backend features end to end, including database migrations, administrative workflows, and payment-processing logic integrated into the production billing pipeline.',
       'Debugged and shipped features across backend and frontend services through test, staging, and production in a fast-moving startup environment.',
     ],
     tech: ['NestJS', 'PostgreSQL', 'Gemini', 'TypeScript', 'REST APIs'],
@@ -105,13 +105,13 @@ export const projects: Project[] = [
   {
     id: 'distributed-object-store',
     title: 'Distributed Object Store',
-    tagline: 'A fault-tolerant object store with a from-scratch Raft engine.',
+    tagline: 'A cloud-style storage system that keeps files safe and available even when servers crash.',
     featured: true,
     category: 'Systems',
     whatItIs:
       'A distributed, fault-tolerant object store written in C++20 that keeps data available and consistent even when storage nodes fail.',
     whyItMatters:
-      'Object stores are the backbone of cloud storage. Building one end to end — including consensus — means understanding replication, durability, and failure recovery at the level real systems need.',
+      'Object stores are the backbone of cloud storage. Building one end to end, including the consensus algorithm, means understanding replication, durability, and failure recovery at the level real systems need.',
     whatIBuilt: [
       'Consistent hashing with 3-way replication and quorum writes, checksum-verified reads, failure detection, and anti-entropy repair across nodes.',
       'A Raft consensus engine from scratch for the metadata control plane: pre-vote elections, persistent replicated logs, majority commit, follower catch-up, and leader failover over gRPC.',
@@ -127,13 +127,13 @@ export const projects: Project[] = [
   {
     id: 'mini-tensorrt',
     title: 'MiniTensorRT',
-    tagline: 'A from-scratch C++ transformer inference runtime, CPU → CUDA.',
+    tagline: 'Custom software that runs AI language models fast, on both regular processors and GPUs.',
     featured: true,
     category: 'ML Systems',
     whatItIs:
       'A from-scratch C++17 inference runtime that runs GPT-2 (124M) with output parity to HuggingFace, on both CPU and GPU.',
     whyItMatters:
-      'Inference cost and latency decide whether a model is usable in production. Writing the runtime by hand exposes exactly where the time and memory go — and how to get them back.',
+      'Inference cost and latency decide whether a model is usable in production. Writing the runtime by hand exposes exactly where the time and memory go, and how to get them back.',
     whatIBuilt: [
       'Optimized GEMM from 1.7 to 310 GFLOP/s (~180×) with ARM NEON SIMD and multithreading; cut transformer-block latency 56× and memory 12.5× via arena memory planning and operator fusion.',
       'Extended the runtime to CUDA, running GPT-2 in ~22 ms on a Tesla T4.',
@@ -150,7 +150,7 @@ export const projects: Project[] = [
   {
     id: 'agentic-rag',
     title: 'Agentic RAG & Information Retrieval Platform',
-    tagline: 'An end-to-end RAG platform serving grounded answers at <2s p95.',
+    tagline: 'A search system that gives AI accurate, source-backed answers in under 2 seconds.',
     featured: true,
     category: 'AI / LLM',
     whatItIs:
@@ -169,11 +169,11 @@ export const projects: Project[] = [
   {
     id: 'mode',
     title: 'MoDE: Difficulty-Aware Compute for Reasoning Models',
-    tagline: 'Predicts how much reasoning compute a query actually needs.',
+    tagline: 'Makes AI reasoning cheaper by spending extra effort only on the hard questions.',
     featured: true,
     category: 'AI / LLM',
     whatItIs:
-      'A framework that predicts, per query, how much reasoning compute a large model should spend — so easy questions stop wasting tokens.',
+      'A framework that predicts, per question, how much thinking effort a large model should spend, so easy questions stop wasting compute.',
     whyItMatters:
       'Reasoning models burn compute uniformly regardless of difficulty. Allocating budget by predicted complexity cuts cost without hurting answers.',
     whatIBuilt: [
@@ -187,7 +187,7 @@ export const projects: Project[] = [
   {
     id: 'efficient-llm',
     title: 'Efficient LLM Inference: INT4 + Mixture-of-Experts',
-    tagline: 'Shrinks an LLM 60% with INT4 quantization and a sparse MoE.',
+    tagline: 'Shrinks a large AI model by 60% so it runs on smaller, cheaper hardware.',
     featured: false,
     category: 'ML Systems',
     whatItIs:
@@ -196,7 +196,7 @@ export const projects: Project[] = [
       'Memory footprint gates where a model can run. Quantization and sparsity are the two biggest levers, so I implemented both from the ground up.',
     whatIBuilt: [
       'Per-group INT4 weight-only quantization for LLaMA 3.2-1B via 4-bit weight packing and group-wise scaling, cutting memory 60.6% (2.86 GB → 1.13 GB).',
-      'A top-2 Mixture-of-Experts with learned token routing and LoRA fine-tuning — training only 2.23M of 1.50B parameters (0.15%).',
+      'A top-2 Mixture-of-Experts with learned token routing and LoRA fine-tuning, training only 2.23M of 1.50B parameters (0.15%).',
     ],
     outcomes: ['−60.6% memory (2.86 → 1.13 GB)', '9.59 perplexity vs. 9.66 dense, training 0.15% of params'],
     tech: ['Python', 'PyTorch', 'CUDA', 'LLaMA 3.2-1B', 'LoRA'],
@@ -205,13 +205,13 @@ export const projects: Project[] = [
   {
     id: 'preference-falsification',
     title: 'Preference Falsification in LLM Multi-Agent Networks',
-    tagline: 'Measures when LLM agents hide their true beliefs under pressure.',
+    tagline: 'A study of when AI agents hide their true opinions under social pressure.',
     featured: false,
     category: 'AI / LLM',
     whatItIs:
-      'A controlled multi-agent simulation studying when LLM agents misrepresent their private beliefs under social pressure.',
+      'A controlled experiment with many AI agents, studying when they misrepresent their private beliefs under social pressure.',
     whyItMatters:
-      'As multi-agent LLM systems grow, understanding emergent social dynamics — like conformity and self-censorship — matters for reliability and safety.',
+      'As AI systems with many agents grow, understanding group behavior like conformity and self-censorship matters for reliability and safety.',
     whatIBuilt: [
       'A simulation with 24 Gemini agents across 7 experimental conditions varying social pressure and private information.',
       'Quantitative evaluation measuring a 2.26–2.72 Falsification Gap vs. a 1.32 stochastic baseline; a single whistleblower agent reduced the gap up to 47%.',
@@ -223,11 +223,11 @@ export const projects: Project[] = [
   {
     id: 'cuda-kernels',
     title: 'CUDA Kernel Implementations',
-    tagline: 'Seven hand-tuned CUDA kernels, benchmarked against CPU refs.',
+    tagline: 'Hand-optimized GPU code that speeds up the core math behind machine learning.',
     featured: false,
     category: 'ML Systems',
     whatItIs:
-      'A set of seven CUDA kernels — reduction, GEMM, tiling, transpose — implemented and benchmarked on NVIDIA P100.',
+      'A set of seven GPU programs (reduction, matrix multiply, tiling, transpose) implemented and benchmarked on an NVIDIA P100.',
     whyItMatters:
       'GPU performance lives and dies on memory access patterns. These kernels make the difference between naive and optimized concrete and measurable.',
     whatIBuilt: [
@@ -241,25 +241,25 @@ export const projects: Project[] = [
   {
     id: 'kernel-dataflow',
     title: 'Kernel Design & Dataflow Simulation',
-    tagline: 'Custom GEMM kernels and accelerator dataflow simulations.',
+    tagline: 'High-performance math code plus simulations of how AI chips move data.',
     featured: false,
     category: 'ML Systems',
     whatItIs:
-      'Custom convolution/GEMM kernels as PyTorch C++ extensions, plus simulations of accelerator dataflows.',
+      'Custom convolution and matrix-multiply code built as PyTorch extensions, plus simulations of how AI accelerator chips move data around.',
     whyItMatters:
-      'Understanding how data moves through an accelerator is the key to ML hardware performance — so I modeled the dataflows directly.',
+      'Understanding how data moves through a chip is the key to AI hardware performance, so I modeled those dataflows directly.',
     whatIBuilt: [
       'im2col convolution and six custom GEMM kernels as PyTorch C++ extensions, from naive loop orderings to cache-blocked, AVX-vectorized, and multithreaded.',
       'Multiprocessing simulations of weight-, output-, and input-stationary accelerator dataflows, validating each against CPU ground truth.',
     ],
-    outcomes: ['6 GEMM kernels benchmarked vs. PyTorch matmul', '3 accelerator dataflows simulated & validated'],
+    outcomes: ['6 matrix-multiply kernels benchmarked vs. PyTorch', '3 accelerator dataflows simulated and validated'],
     tech: ['C++', 'Python', 'PyTorch C++ Extensions', 'AVX SIMD', 'Multithreading'],
     github: 'https://github.com/snehalgore1/Kernel-Design-Dataflow-Simulation',
   },
   {
     id: 'transformer-scratch',
     title: 'Transformer from Scratch',
-    tagline: 'A full encoder-decoder Transformer, built and trained from zero.',
+    tagline: 'Built the core architecture behind modern AI (like ChatGPT) from scratch, then trained it to translate.',
     featured: false,
     category: 'AI / LLM',
     whatItIs:
@@ -277,7 +277,7 @@ export const projects: Project[] = [
   {
     id: 'greenprompt',
     title: 'GreenPrompt',
-    tagline: 'A Chrome extension that optimizes prompts to save tokens & energy.',
+    tagline: 'A Chrome extension that rewrites AI prompts to cut cost and energy use.',
     featured: false,
     category: 'Tools',
     whatItIs:
@@ -319,14 +319,14 @@ export const skills: { group: string; items: string[] }[] = [
   { group: 'ML Systems', items: ['PyTorch', 'TensorFlow', 'ONNX', 'MLflow', 'SageMaker', 'Quantization'] },
 ];
 
-// Personality — subtle easter eggs, never the main content. Only what the brief allows.
+// Personality: subtle, never the main content. Only what the brief allows.
 export const personal = {
-  heading: 'Outside the lab',
+  heading: 'Besides work, I like doing these things',
   sports: [
     { label: 'Soccer', note: 'since I was 14', icon: 'soccer' },
     { label: 'Table tennis', note: 'a longtime favorite', icon: 'pingpong' },
     { label: 'Pickleball', note: 'learning, about a year in', icon: 'pickleball' },
   ],
   cooking:
-    'I cook a lot, and I like treating recipes the way I treat systems — experimenting, combining ingredients from different cuisines, and iterating until it works.',
+    'I cook a lot, and I like treating recipes the way I treat systems: experimenting, combining ingredients from different cuisines, and iterating until it works.',
 };

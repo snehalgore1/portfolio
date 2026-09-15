@@ -33,7 +33,7 @@
   animation: ring-ping 1.4s ease-out infinite;
 }
 
-/* Guided hint — the next unexplored object pulses gently to draw the eye */
+/* Guided hint - the next unexplored object pulses gently to draw the eye */
 .studio-obj.is-hint .studio-ring {
   opacity: 0.75;
   animation: ring-ping 1.6s ease-out infinite;

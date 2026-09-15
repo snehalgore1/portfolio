@@ -13,10 +13,10 @@ interface StudioProps {
 }
 
 /**
- * "Snehal's Little Yellow Studio" — an art-directed workspace in three parallax
+ * "Snehal's Little Yellow Studio" - an art-directed workspace in three parallax
  * layers (back wall / mid desk / front objects). The notebook, folder, laptop,
  * resume, and envelope open section modals; the coffee mug is a personality
- * easter egg once every section has been explored. All of it is enhancement —
+ * easter egg once every section has been explored. All of it is enhancement -
  * the Navbar and full page below are the guaranteed way to navigate.
  */
 export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, onEasterEgg }: StudioProps) {
@@ -64,7 +64,7 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
         </filter>
       </defs>
 
-      {/* ══ BACK LAYER — wall, sun, window, shelf ══ */}
+      {/* ══ BACK LAYER - wall, sun, window, shelf ══ */}
       <g style={layer(6, 6)}>
         <rect x="-40" y="0" width="980" height="440" fill="url(#wall)" />
         <rect x="-40" y="430" width="980" height="180" fill="url(#floor)" />
@@ -80,7 +80,7 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
           <line x1="70" y1="145" x2="250" y2="145" stroke="#e0b02f" strokeWidth="4" />
         </g>
 
-        {/* Framed picture on the wall — a little sunny landscape */}
+        {/* Framed picture on the wall - a little sunny landscape */}
         <g transform="translate(360 96)" filter="url(#soft)">
           <rect x="0" y="0" width="120" height="92" rx="8" fill="#fffdf7" stroke="#c89b19" strokeWidth="4" />
           <rect x="10" y="10" width="100" height="72" rx="4" fill="#ffeeb0" />
@@ -125,7 +125,7 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
         </g>
       </g>
 
-      {/* ══ MID LAYER — desk, lamp, floor plant ══ */}
+      {/* ══ MID LAYER - desk, lamp, floor plant ══ */}
       <g style={layer(12, 10)}>
         {/* Soft rug grounds the scene */}
         <ellipse cx="450" cy="520" rx="330" ry="40" fill="#f4c542" opacity="0.28" />
@@ -177,11 +177,11 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
         </g>
       </g>
 
-      {/* ══ FRONT LAYER — interactive desk objects ══ */}
+      {/* ══ FRONT LAYER - interactive desk objects ══ */}
       <g style={layer(20, 15)}>
         {/* Notebook → About */}
         <StudioObject
-          label="About — my story and interests"
+          label="About: my story and interests"
           tag="About"
           tagX={195}
           tagY={368}
@@ -202,7 +202,7 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
 
         {/* Envelope → Contact */}
         <StudioObject
-          label="Contact — email, LinkedIn, GitHub"
+          label="Contact: email, LinkedIn, GitHub"
           tag="Contact"
           tagX={330}
           tagY={380}
@@ -220,7 +220,7 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
 
         {/* Laptop → Projects */}
         <StudioObject
-          label="Projects — my technical work"
+          label="Projects: my technical work"
           tag="Projects"
           tagX={455}
           tagY={278}
@@ -245,12 +245,12 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
           </g>
         </StudioObject>
 
-        {/* Coffee mug — easter egg (clickable once everything explored) */}
+        {/* Coffee mug - easter egg (clickable once everything explored) */}
         <g
           className={easterEggUnlocked ? 'studio-obj' : ''}
           role={easterEggUnlocked ? 'button' : undefined}
           tabIndex={easterEggUnlocked ? 0 : undefined}
-          aria-label={easterEggUnlocked ? 'A little surprise — open the recipe card' : undefined}
+          aria-label={easterEggUnlocked ? 'A little surprise: open the recipe card' : undefined}
           onClick={easterEggUnlocked ? onEasterEgg : undefined}
           onKeyDown={
             easterEggUnlocked
@@ -279,7 +279,7 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
 
         {/* Folder → Experience */}
         <StudioObject
-          label="Experience — where I've worked"
+          label="Experience: where I've worked"
           tag="Experience"
           tagX={685}
           tagY={368}
@@ -300,7 +300,7 @@ export function Studio({ onOpen, visited, hintId, parallax, easterEggUnlocked, o
 
         {/* Resume → Resume */}
         <StudioObject
-          label="Resume — view and download"
+          label="Resume: view and download"
           tag="Resume"
           tagX={800}
           tagY={314}

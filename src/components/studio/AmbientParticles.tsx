@@ -1,4 +1,4 @@
-// Butter-toned floating dust motes / sunbeam specks — the warm analog of the
+// Butter-toned floating dust motes / sunbeam specks - the warm analog of the
 // reference site's bubbles. Decorative only; hidden from assistive tech and
 // disabled under prefers-reduced-motion (see studio.css .anim-drift).
 

@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 
-// Personality-only reveals (per the brief — never gates resume info).
+// Personality-only reveals (per the brief - never gates resume info).
 const FORTUNES = [
   "Off the clock: soccer since I was 14, and a table-tennis rally I refuse to lose.",
-  "Currently learning pickleball — about a year in, and the dinks are improving.",
+  "Currently learning pickleball, about a year in, and the dinks are improving.",
   "I treat recipes like systems: experiment, combine cuisines, iterate until it works.",
-  "Best debugging happens away from the keyboard — usually mid-run or mid-stir.",
+  "Best debugging happens away from the keyboard, usually mid-run or mid-stir.",
   "A good kernel and a good curry have the same secret: everything in the right order.",
 ];
 

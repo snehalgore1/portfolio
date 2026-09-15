@@ -2,7 +2,7 @@
 @import 'tailwindcss';
 
 /* ─────────────────────────────────────────────────────────────
-   Snehal's Little Yellow Studio — design tokens
+   Snehal's Little Yellow Studio - design tokens
    Palette from the creative brief.
    ───────────────────────────────────────────────────────────── */
 @theme {
@@ -13,7 +13,7 @@
   --color-espresso: #2c2521; /* primary text / technical content */
   --color-cocoa: #6b4e3d;    /* secondary text / labels / serif accents */
   --color-gold: #c89b19;     /* small accents / dividers / metadata */
-  --color-sage: #78835a;     /* supporting accent — sports / cooking motifs */
+  --color-sage: #78835a;     /* supporting accent - sports / cooking motifs */
 
   --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
@@ -77,7 +77,7 @@ h1, h2, h3, h4 {
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes popIn { from { opacity: 0; transform: scale(0.92) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
-/* Scroll reveal — paired with useReveal() */
+/* Scroll reveal - paired with useReveal() */
 .reveal {
   opacity: 0;
   transform: translateY(22px);

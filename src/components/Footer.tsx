@@ -12,7 +12,7 @@ export function Footer() {
               Want the one-page version?
             </h2>
             <p className="max-w-xl text-espresso/80">
-              Everything above, condensed and printable — never buried behind the studio.
+              Everything above, condensed and printable, never buried behind the studio.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <a
