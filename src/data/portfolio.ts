@@ -64,6 +64,7 @@ export const profile = {
 export const nav: NavItem[] = [
   { label: 'About', href: '#about' },
   { label: 'Experience', href: '#experience' },
+  { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
   { label: 'Resume', href: '#resume' },
   { label: 'Contact', href: '#contact' },
@@ -312,12 +313,58 @@ export const education: EducationItem[] = [
   },
 ];
 
-export const skills: { group: string; items: string[] }[] = [
+export interface SkillGroup {
+  group: string;
+  items: string[];
+}
+
+export const skills: SkillGroup[] = [
   { group: 'Languages', items: ['C++', 'Python', 'Java', 'TypeScript', 'JavaScript', 'SQL'] },
   { group: 'Systems', items: ['Distributed Systems', 'Multithreading', 'Concurrency', 'gRPC', 'Protobuf', 'Raft', 'CUDA', 'ARM NEON SIMD', 'CMake'] },
   { group: 'Backend & Data', items: ['FastAPI', 'NestJS', 'Node.js', 'PostgreSQL', 'Redis', 'OpenSearch', 'MySQL', 'REST APIs'] },
   { group: 'Cloud & Infra', items: ['AWS', 'GCP', 'Docker', 'Kubernetes', 'GitHub Actions', 'Airflow', 'Pulumi'] },
   { group: 'ML Systems', items: ['PyTorch', 'TensorFlow', 'ONNX', 'MLflow', 'SageMaker', 'Quantization'] },
+];
+
+// Role-based skill views. A recruiter can flip to what's relevant to their hire.
+// Every item is drawn from Snehal's resume + shipped projects (no invented skills).
+export interface SkillTrack {
+  id: 'all' | 'swe' | 'ml';
+  label: string;
+  blurb: string;
+  groups: SkillGroup[];
+}
+
+export const skillTracks: SkillTrack[] = [
+  {
+    id: 'all',
+    label: 'Everything',
+    blurb: 'The full toolkit, grouped by area.',
+    groups: skills,
+  },
+  {
+    id: 'swe',
+    label: 'Software Engineering',
+    blurb: 'Backend services, distributed systems, and the infrastructure to ship them.',
+    groups: [
+      { group: 'Languages', items: ['C++', 'Python', 'Java', 'TypeScript', 'JavaScript', 'SQL'] },
+      { group: 'Backend & APIs', items: ['FastAPI', 'NestJS', 'Node.js', 'REST APIs', 'gRPC', 'Protobuf'] },
+      { group: 'Data', items: ['PostgreSQL', 'Redis', 'OpenSearch', 'MySQL'] },
+      { group: 'Systems & Concurrency', items: ['Distributed Systems', 'Multithreading', 'Concurrency', 'Raft'] },
+      { group: 'Cloud & Infra', items: ['AWS', 'GCP', 'Docker', 'Kubernetes', 'GitHub Actions', 'Airflow', 'Pulumi'] },
+    ],
+  },
+  {
+    id: 'ml',
+    label: 'AI & ML',
+    blurb: 'Model training, inference systems, LLMs, and low-level performance.',
+    groups: [
+      { group: 'ML Frameworks', items: ['PyTorch', 'TensorFlow', 'ONNX', 'HuggingFace'] },
+      { group: 'LLM & GenAI', items: ['LangGraph', 'RAG', 'LoRA', 'Gemini', 'Quantization'] },
+      { group: 'ML Ops & Serving', items: ['MLflow', 'SageMaker', 'Vertex AI', 'Model Optimization'] },
+      { group: 'Performance', items: ['CUDA', 'ARM NEON SIMD', 'Python'] },
+    ],
+  },
 ];
 
 // Personality: subtle, never the main content. Only what the brief allows.

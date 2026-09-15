@@ -2,26 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { profile } from '../data/portfolio';
 import { Studio } from './studio/Studio';
 import { AmbientParticles } from './studio/AmbientParticles';
-import { studioSections, sectionOrder, scrollToSection, type SectionId } from './studio/sections';
-
-// Tiny icons matching each desk object, for the legend chips.
-const CHIP_ICON: Record<SectionId, React.ReactNode> = {
-  about: (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="3" width="14" height="18" rx="2" stroke="currentColor" strokeWidth="2" /><path d="M8 8h6M8 12h6M8 16h3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
-  ),
-  experience: (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" /></svg>
-  ),
-  projects: (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2" stroke="currentColor" strokeWidth="2" /><path d="M2 20h20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
-  ),
-  resume: (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 3h8l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" /><path d="M13 3v5h5" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" /></svg>
-  ),
-  contact: (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="2" /><path d="M4 7l8 6 8-6" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" /></svg>
-  ),
-};
+import { scrollToSection, type SectionId } from './studio/sections';
 
 interface HeroProps {
   onOpen: (id: SectionId) => void;
@@ -34,10 +15,7 @@ interface HeroProps {
 
 export function Hero({ onOpen, visited, easterEggUnlocked, onEasterEgg, dusk, onToggleDusk }: HeroProps) {
   const [parallax, setParallax] = useState({ x: 0, y: 0 });
-  const [idle, setIdle] = useState(false);
-  const [spot, setSpot] = useState<SectionId | null>(null);
   const interactive = useRef(false);
-  const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Enable parallax only for fine pointers without reduced-motion.
   useEffect(() => {
@@ -46,28 +24,13 @@ export function Hero({ onOpen, visited, easterEggUnlocked, onEasterEgg, dusk, on
       !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }, []);
 
-  // Idle detection → show the guided hint toward the next unexplored object.
-  const bumpIdle = () => {
-    setIdle(false);
-    if (idleTimer.current) clearTimeout(idleTimer.current);
-    idleTimer.current = setTimeout(() => setIdle(true), 3500);
-  };
-  useEffect(() => {
-    bumpIdle();
-    return () => { if (idleTimer.current) clearTimeout(idleTimer.current); };
-  }, [visited.size]);
-
   const onPointerMove = (e: React.PointerEvent) => {
-    bumpIdle();
     if (!interactive.current) return;
     const r = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - r.left) / r.width - 0.5) * 2;
     const y = ((e.clientY - r.top) / r.height - 0.5) * 2;
     setParallax({ x, y });
   };
-
-  const nextUnvisited = sectionOrder.find((id) => !visited.has(id)) ?? null;
-  const hintId = idle ? nextUnvisited : null;
 
   return (
     <section
@@ -145,13 +108,14 @@ export function Hero({ onOpen, visited, easterEggUnlocked, onEasterEgg, dusk, on
         </p>
       </div>
 
-      {/* Studio scene */}
+      {/* Studio scene (decorative; objects still open sections on click) */}
       <div className="relative z-10 w-full max-w-[520px]">
         <Studio
           onOpen={onOpen}
           visited={visited}
-          hintId={hintId}
-          spotlightId={spot}
+          hintId={null}
+          spotlightId={null}
+          showBadges={false}
           parallax={parallax}
           easterEggUnlocked={easterEggUnlocked}
           onEasterEgg={onEasterEgg}
@@ -159,63 +123,27 @@ export function Hero({ onOpen, visited, easterEggUnlocked, onEasterEgg, dusk, on
         />
       </div>
 
-      {/* Legend: names each desk object, opens it, and spotlights it on hover */}
-      <div className="relative z-10 mt-3 flex flex-wrap items-center justify-center gap-2">
-        {studioSections.map((s) => {
-          const isVisited = visited.has(s.id);
-          return (
-            <button
-              key={s.id}
-              type="button"
-              onClick={() => onOpen(s.id)}
-              onMouseEnter={() => setSpot(s.id)}
-              onMouseLeave={() => setSpot(null)}
-              onFocus={() => setSpot(s.id)}
-              onBlur={() => setSpot(null)}
-              aria-label={`Open ${s.label}${isVisited ? ' (explored)' : ''}`}
-              className={`group inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-all duration-300 ease-out ${
-                dusk
-                  ? 'border-white/15 bg-white/5 text-cream/85 hover:border-gold hover:bg-white/10'
-                  : 'border-espresso/12 bg-ivory/70 text-cocoa hover:border-gold hover:bg-cream/70'
-              }`}
-            >
-              <span className="text-gold">{CHIP_ICON[s.id]}</span>
-              {s.label}
-              {isVisited && <span aria-hidden="true" className="text-sage">✓</span>}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* CTAs + progress */}
-      <div className="relative z-10 mt-1 flex flex-col items-center gap-3">
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          <button
-            type="button"
-            onClick={() => scrollToSection('projects')}
-            className="rounded-full bg-espresso px-6 py-3 text-sm font-semibold text-ivory shadow-[var(--shadow-md)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[var(--shadow-lg)] hover:brightness-110"
-          >
-            Explore my work →
-          </button>
-          <a
-            href={profile.resumeFile}
-            className="rounded-full border border-espresso/15 bg-ivory/70 px-6 py-3 text-sm font-semibold text-espresso backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-gold"
-          >
-            View résumé
-          </a>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 font-mono text-[11px] transition-colors duration-700 ${dusk ? 'bg-white/10 text-cream/80' : 'bg-cream/80 text-cocoa'}`}>
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-sage" />
-            explored {visited.size}/{sectionOrder.length}
-          </span>
-          <span className={`font-mono text-[11px] transition-colors duration-700 ${dusk ? 'text-cream/50' : 'text-cocoa/70'}`}>tap a label or its object on the desk</span>
-        </div>
+      {/* CTAs */}
+      <div className="relative z-10 mt-4 flex flex-wrap items-center justify-center gap-3">
+        <button
+          type="button"
+          onClick={() => scrollToSection('projects')}
+          className="rounded-full bg-espresso px-6 py-3 text-sm font-semibold text-ivory shadow-[var(--shadow-md)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[var(--shadow-lg)] hover:brightness-110"
+        >
+          Explore my work →
+        </button>
+        <a
+          href={profile.resumeFile}
+          className={`rounded-full border px-6 py-3 text-sm font-semibold backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-0.5 ${
+            dusk ? 'border-white/20 text-ivory hover:border-gold' : 'border-espresso/15 bg-ivory/70 text-espresso hover:border-gold'
+          }`}
+        >
+          View résumé
+        </a>
       </div>
 
       {/* Scroll cue */}
-      <a href="#about" aria-label="Scroll to content" className={`relative z-10 mt-4 transition-colors hover:text-gold ${dusk ? 'text-cream/50' : 'text-cocoa/50'}`}>
+      <a href="#about" aria-label="Scroll to content" className={`relative z-10 mt-8 transition-colors hover:text-gold ${dusk ? 'text-cream/50' : 'text-cocoa/50'}`}>
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="animate-bounce">
           <path d="M12 5v14M6 13l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>

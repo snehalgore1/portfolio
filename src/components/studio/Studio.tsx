@@ -14,6 +14,8 @@ interface StudioProps {
   onEasterEgg: () => void;
   /** Evening mode. */
   dusk?: boolean;
+  /** Show the "explored" check badges on objects. */
+  showBadges?: boolean;
 }
 
 /**
@@ -23,7 +25,8 @@ interface StudioProps {
  * easter egg once every section has been explored. All of it is enhancement -
  * the Navbar and full page below are the guaranteed way to navigate.
  */
-export function Studio({ onOpen, visited, hintId, spotlightId, parallax, easterEggUnlocked, onEasterEgg, dusk }: StudioProps) {
+export function Studio({ onOpen, visited, hintId, spotlightId, parallax, easterEggUnlocked, onEasterEgg, dusk, showBadges = true }: StudioProps) {
+  const vis = (id: SectionId) => showBadges && visited.has(id);
   const layer = (mx: number, my: number) => ({
     transform: `translate(${parallax.x * mx}px, ${parallax.y * my}px)`,
     transition: 'transform 0.2s ease-out',
@@ -215,7 +218,7 @@ export function Studio({ onOpen, visited, hintId, spotlightId, parallax, easterE
           tagX={195}
           tagY={368}
           box={{ x: 140, y: 378, w: 124, h: 52 }}
-          visited={visited.has('about')}
+          visited={vis('about')}
           hint={lit('about')}
           onActivate={() => onOpen('about')}
         >
@@ -236,7 +239,7 @@ export function Studio({ onOpen, visited, hintId, spotlightId, parallax, easterE
           tagX={330}
           tagY={380}
           box={{ x: 280, y: 392, w: 100, h: 70 }}
-          visited={visited.has('contact')}
+          visited={vis('contact')}
           hint={lit('contact')}
           onActivate={() => onOpen('contact')}
         >
@@ -254,7 +257,7 @@ export function Studio({ onOpen, visited, hintId, spotlightId, parallax, easterE
           tagX={455}
           tagY={278}
           box={{ x: 332, y: 296, w: 244, h: 150 }}
-          visited={visited.has('projects')}
+          visited={vis('projects')}
           hint={lit('projects')}
           onActivate={() => onOpen('projects')}
         >
@@ -314,7 +317,7 @@ export function Studio({ onOpen, visited, hintId, spotlightId, parallax, easterE
           tagX={685}
           tagY={368}
           box={{ x: 628, y: 386, w: 118, h: 74 }}
-          visited={visited.has('experience')}
+          visited={vis('experience')}
           hint={lit('experience')}
           onActivate={() => onOpen('experience')}
         >
@@ -335,7 +338,7 @@ export function Studio({ onOpen, visited, hintId, spotlightId, parallax, easterE
           tagX={800}
           tagY={314}
           box={{ x: 754, y: 330, w: 92, h: 98 }}
-          visited={visited.has('resume')}
+          visited={vis('resume')}
           hint={lit('resume')}
           onActivate={() => onOpen('resume')}
         >
