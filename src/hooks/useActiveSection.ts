@@ -2,33 +2,46 @@ import { useEffect, useState } from 'react';
 
 /**
  * Tracks which section is currently in view so the navbar can highlight it.
- * Pass the list of section ids (without '#'). Returns the active id.
+ * Deterministic scroll-position approach: the active section is the last one
+ * whose top has passed a line near the top of the viewport. Returns '' when
+ * above the first section (e.g. in the hero), so nothing is falsely highlighted.
+ *
+ * @param ids     section element ids (without '#'), in document order
+ * @param offset  px from the top of the viewport used as the "current" line
  */
-export function useActiveSection(ids: string[], topOffset = 100) {
-  const [active, setActive] = useState<string>(ids[0] ?? '');
+export function useActiveSection(ids: string[], offset = 120) {
+  const [active, setActive] = useState<string>('');
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
+    if (typeof window === 'undefined') return;
 
-    const els = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
-    if (els.length === 0) return;
+    const compute = () => {
+      // At the very bottom of the page, force the last section (it may be short).
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      if (atBottom) {
+        setActive(ids[ids.length - 1] ?? '');
+        return;
+      }
 
-    // A band near the top of the viewport decides the "current" section.
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]) setActive(visible[0].target.id);
-      },
-      { rootMargin: `-${topOffset}px 0px -55% 0px`, threshold: [0, 0.25, 0.5, 1] },
-    );
+      let current = '';
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top <= offset) current = id;
+        else break; // sections are in document order; stop at the first one below the line
+      }
+      setActive(current);
+    };
 
-    els.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, [ids, topOffset]);
+    compute();
+    window.addEventListener('scroll', compute, { passive: true });
+    window.addEventListener('resize', compute);
+    return () => {
+      window.removeEventListener('scroll', compute);
+      window.removeEventListener('resize', compute);
+    };
+  }, [ids, offset]);
 
   return active;
 }
