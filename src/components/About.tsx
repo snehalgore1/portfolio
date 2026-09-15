@@ -1,4 +1,4 @@
-import { profile, skills, education } from '../data/portfolio';
+import { profile, skills } from '../data/portfolio';
 import { useReveal } from '../hooks/useReveal';
 
 export function About() {
@@ -13,21 +13,10 @@ export function About() {
               A real person behind the terminal
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-cocoa">{profile.summary}</p>
-
-            <div className="mt-8">
-              <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-gold">Education</h3>
-              <ul className="mt-3 space-y-3">
-                {education.map((e) => (
-                  <li key={e.school} className="flex flex-wrap items-baseline justify-between gap-x-4">
-                    <div>
-                      <p className="font-serif text-lg text-espresso">{e.school}</p>
-                      <p className="text-sm text-cocoa">{e.degree}</p>
-                    </div>
-                    <span className="font-mono text-xs text-cocoa/70">{e.period}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-ivory px-4 py-1.5 font-mono text-xs text-cocoa ring-1 ring-butter/40">
+              <span className="h-1.5 w-1.5 rounded-full bg-sage" />
+              {profile.nowNote}
+            </p>
           </div>
 
           {/* Skills */}

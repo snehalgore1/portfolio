@@ -126,10 +126,82 @@ function ProjectCard({ p, open, onToggle }: { p: Project; open: boolean; onToggl
   );
 }
 
+function FeaturedBlock({ p, flip }: { p: Project; flip: boolean }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <motion.article
+      layout
+      className="rounded-3xl border border-butter/50 bg-cream/40 p-5 sm:p-6"
+    >
+      <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
+        {/* Visual panel */}
+        <div
+          className={`relative flex min-h-[220px] flex-col justify-between overflow-hidden rounded-2xl bg-gradient-to-br from-espresso to-[#3f342c] p-6 sm:min-h-[280px] ${
+            flip ? 'lg:order-2' : ''
+          }`}
+        >
+          <div aria-hidden="true" className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-butter/20 blur-2xl" />
+          <span className="relative font-mono text-[11px] uppercase tracking-[0.18em] text-butter">{p.category}</span>
+          <h3 className="relative mt-4 font-serif text-3xl font-semibold leading-[1.05] text-ivory sm:text-4xl">
+            {p.title}
+          </h3>
+          <div className="relative mt-4 flex flex-wrap gap-2">
+            {p.outcomes.slice(0, 2).map((o) => (
+              <span key={o} className="rounded-md bg-white/10 px-2.5 py-1 font-mono text-[11px] text-cream/90">
+                {o}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Details */}
+        <div className="flex flex-col justify-center">
+          <p className="text-lg leading-relaxed text-cocoa">{p.tagline}</p>
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {p.tech.map((t) => (
+              <span key={t} className="rounded bg-ivory/70 px-2 py-0.5 font-mono text-[10px] text-cocoa/80">
+                {t}
+              </span>
+            ))}
+          </div>
+          <div className="mt-6 flex items-center gap-4">
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              className="inline-flex items-center gap-1.5 rounded-full bg-espresso px-5 py-2.5 text-sm font-semibold text-ivory shadow-[var(--shadow-sm)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] hover:brightness-110"
+            >
+              {open ? 'Show less' : 'Read the case study'}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true" className={`transition-transform duration-300 ${open ? 'rotate-180' : ''}`}>
+                <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            {p.github && (
+              <a
+                href={p.github}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-espresso underline-offset-4 hover:text-gold hover:underline"
+              >
+                View project
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17L17 7M17 7H8M17 7v9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+      <AnimatePresence initial={false}>{open && <CaseStudy p={p} />}</AnimatePresence>
+    </motion.article>
+  );
+}
+
 export function Projects() {
   const [filter, setFilter] = useState<Filter>('All');
   const [openId, setOpenId] = useState<string | null>(null);
   const { ref, shown } = useReveal<HTMLDivElement>();
+  const featured = projects.filter((p) => p.featured);
 
   const shownProjects = useMemo(
     () => (filter === 'All' ? projects : projects.filter((p) => p.category === filter)),
@@ -154,6 +226,15 @@ export function Projects() {
             for the full case study.
           </p>
         </div>
+
+        {/* Featured editorial showcase */}
+        <div className="mb-16 space-y-6">
+          {featured.map((p, i) => (
+            <FeaturedBlock key={p.id} p={p} flip={i % 2 === 1} />
+          ))}
+        </div>
+
+        <p className="mb-6 font-mono text-xs uppercase tracking-[0.2em] text-gold">Browse all projects</p>
 
         {/* Filters with a sliding active indicator */}
         <div className="mb-8 flex flex-wrap gap-2" role="tablist" aria-label="Filter projects by category">

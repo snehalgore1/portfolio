@@ -113,12 +113,27 @@ export function Hero({ onOpen, visited, easterEggUnlocked, onEasterEgg, dusk, on
 
       {/* Copy */}
       <div className="relative z-10 mb-2 text-center">
-        <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-butter/40 bg-cream/70 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-cocoa backdrop-blur-sm">
-          <span className="inline-block h-1.5 w-1.5 rounded-full bg-sage" /> {profile.location}
-        </p>
+        <div className="mb-4 flex flex-wrap items-center justify-center gap-2">
+          {profile.openToWork && (
+            <span className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.15em] backdrop-blur-sm transition-colors duration-700 ${
+              dusk ? 'border-sage/40 bg-sage/15 text-cream' : 'border-sage/30 bg-sage/10 text-sage'
+            }`}>
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sage opacity-70" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-sage" />
+              </span>
+              Open to work
+            </span>
+          )}
+          <span className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.15em] backdrop-blur-sm transition-colors duration-700 ${
+            dusk ? 'border-white/15 bg-white/5 text-cream/80' : 'border-butter/40 bg-cream/70 text-cocoa'
+          }`}>
+            {profile.location}
+          </span>
+        </div>
         <h1
           id="hero-heading"
-          className={`font-serif text-[2.75rem] font-semibold leading-[1.02] tracking-[-0.02em] transition-colors duration-700 sm:text-6xl ${
+          className={`font-serif text-[3.25rem] font-semibold leading-[0.98] tracking-[-0.03em] transition-colors duration-700 sm:text-7xl ${
             dusk ? 'text-ivory' : 'text-espresso'
           }`}
         >

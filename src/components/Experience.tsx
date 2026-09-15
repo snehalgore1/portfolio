@@ -1,4 +1,4 @@
-import { experience } from '../data/portfolio';
+import { experience, education } from '../data/portfolio';
 import { useReveal } from '../hooks/useReveal';
 
 export function Experience() {
@@ -10,26 +10,33 @@ export function Experience() {
         <h2 className="font-serif text-[2rem] font-semibold leading-[1.08] text-espresso sm:text-5xl">
           Where I've shipped
         </h2>
+        <p className="mt-3 max-w-xl text-cocoa">
+          2.5+ years taking production systems from first commit to field rollout.
+        </p>
 
-        <ol className="mt-10 space-y-8">
+        {/* Vertical timeline */}
+        <ol className="relative mt-12 border-l-2 border-butter/50 pl-8 sm:pl-10">
           {experience.map((job) => (
-            <li
-              key={job.company}
-              className="rounded-2xl border border-butter/50 bg-cream/50 p-6 sm:p-8"
-            >
-              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                <h3 className="font-serif text-xl font-semibold text-espresso sm:text-2xl">
-                  {job.company}
-                  {job.context && (
-                    <span className="ml-2 align-middle font-sans text-xs font-medium text-cocoa/70">
-                      {job.context}
-                    </span>
-                  )}
-                </h3>
-                <span className="font-mono text-xs text-cocoa/70">{job.period}</span>
-              </div>
+            <li key={job.company} className="relative pb-12 last:pb-0">
+              {/* Node */}
+              <span
+                aria-hidden="true"
+                className="absolute -left-[41px] top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-ivory ring-2 ring-butter-deep sm:-left-[49px]"
+              >
+                <span className="h-2 w-2 rounded-full bg-butter-deep" />
+              </span>
+
+              <span className="font-mono text-xs font-semibold text-gold">{job.period}</span>
+              <h3 className="mt-1 font-serif text-xl font-semibold text-espresso sm:text-2xl">
+                {job.company}
+                {job.context && (
+                  <span className="ml-2 align-middle font-sans text-xs font-medium text-cocoa/70">
+                    {job.context}
+                  </span>
+                )}
+              </h3>
               <p className="mt-0.5 text-sm font-semibold text-gold">
-                {job.role} · <span className="font-normal text-cocoa">{job.location}</span>
+                {job.role} <span className="font-normal text-cocoa">· {job.location}</span>
               </p>
 
               <ul className="mt-4 space-y-2.5">
@@ -43,13 +50,33 @@ export function Experience() {
 
               <div className="mt-4 flex flex-wrap gap-1.5">
                 {job.tech.map((t) => (
-                  <span key={t} className="rounded-md bg-ivory px-2.5 py-1 font-mono text-[11px] text-cocoa ring-1 ring-butter/40">
+                  <span key={t} className="rounded-md bg-cream/70 px-2.5 py-1 font-mono text-[11px] text-cocoa ring-1 ring-butter/40">
                     {t}
                   </span>
                 ))}
               </div>
             </li>
           ))}
+
+          {/* Education node */}
+          <li className="relative">
+            <span
+              aria-hidden="true"
+              className="absolute -left-[41px] top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-ivory ring-2 ring-sage sm:-left-[49px]"
+            >
+              <span className="h-2 w-2 rounded-full bg-sage" />
+            </span>
+            <span className="font-mono text-xs font-semibold text-sage">Education</span>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              {education.map((e) => (
+                <div key={e.school} className="rounded-2xl border border-butter/50 bg-cream/40 p-5">
+                  <h3 className="font-serif text-lg text-espresso">{e.school}</h3>
+                  <p className="mt-0.5 text-sm text-cocoa">{e.degree}</p>
+                  <p className="mt-1 font-mono text-[11px] text-cocoa/70">{e.period} · {e.location}</p>
+                </div>
+              ))}
+            </div>
+          </li>
         </ol>
       </div>
     </section>

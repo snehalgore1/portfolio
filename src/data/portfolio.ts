@@ -50,6 +50,7 @@ export const profile = {
   // A tiny playful technical aside for the hero.
   nowNote: 'Currently: writing CUDA kernels, and learning pickleball.',
   location: 'Los Angeles, CA',
+  openToWork: true,
   summary:
     "Software engineer with 2.5+ years shipping production systems, finishing an M.S. in Computer Science (AI) at USC in December 2026. I work across backend services, distributed systems, and AI/ML infrastructure: the kind of work where something real has to run, stay up, and stay fast.",
   email: 'ssgore18@gmail.com',
