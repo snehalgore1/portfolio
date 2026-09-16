@@ -1,5 +1,6 @@
 import { experience, education } from '../data/portfolio';
 import { useReveal } from '../hooks/useReveal';
+import { highlight } from '../lib/highlight';
 
 export function Experience() {
   const { ref, shown } = useReveal<HTMLDivElement>();
@@ -38,12 +39,15 @@ export function Experience() {
               <p className="mt-0.5 text-sm font-semibold text-gold">
                 {job.role} <span className="font-normal text-cocoa">· {job.location}</span>
               </p>
+              {job.summary && (
+                <p className="mt-3 font-serif text-base italic text-cocoa">{job.summary}</p>
+              )}
 
               <ul className="mt-4 space-y-2.5">
                 {job.bullets.map((b, i) => (
                   <li key={i} className="flex gap-2.5 text-sm leading-relaxed text-cocoa">
                     <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-butter-deep" />
-                    <span>{b}</span>
+                    <span>{highlight(b)}</span>
                   </li>
                 ))}
               </ul>

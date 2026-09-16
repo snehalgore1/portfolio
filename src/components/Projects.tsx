@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { projects, type Project } from '../data/portfolio';
 import { useReveal } from '../hooks/useReveal';
+import { highlight } from '../lib/highlight';
 
 const CATEGORIES = ['All', 'Systems', 'ML Systems', 'AI / LLM', 'Tools'] as const;
 type Filter = (typeof CATEGORIES)[number];
@@ -30,7 +31,7 @@ function CaseStudy({ p }: { p: Project }) {
             {p.whatIBuilt.map((b, i) => (
               <li key={i} className="flex gap-2 text-sm leading-relaxed text-cocoa">
                 <span aria-hidden="true" className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-butter-deep" />
-                <span>{b}</span>
+                <span>{highlight(b)}</span>
               </li>
             ))}
           </ul>

@@ -15,6 +15,7 @@ export interface ExperienceItem {
   role: string;
   location: string;
   period: string;
+  summary?: string;        // italic one-liner shown under the role
   bullets: string[];
   tech: string[];
 }
@@ -46,13 +47,20 @@ export const profile = {
   role: 'AI / ML Engineer',
   // One concise positioning line for the hero.
   positioning:
-    'I build and ship production ML systems, from distributed backends to inference runtimes that run on more than a million devices.',
+    'Software engineer with 2.5+ years shipping production systems, now finishing an M.S. in Computer Science (AI) at USC. I work across distributed backends, ML inference, and LLM systems, where something real has to run, stay up, and stay fast.',
   // A tiny playful technical aside for the hero.
   nowNote: 'Currently: writing CUDA kernels, and learning pickleball.',
   location: 'Los Angeles, CA',
   openToWork: true,
+  // Short one-liner (used in meta / fallbacks).
   summary:
-    "Software engineer with 2.5+ years shipping production systems, finishing an M.S. in Computer Science (AI) at USC in December 2026. I work across backend services, distributed systems, and AI/ML infrastructure: the kind of work where something real has to run, stay up, and stay fast.",
+    "Software engineer with 2.5+ years shipping production systems, finishing an M.S. in Computer Science (AI) at USC in December 2026.",
+  // Multi-paragraph About (all resume-sourced).
+  aboutParagraphs: [
+    "I'm a software engineer with 2.5+ years of production experience, finishing my M.S. in Computer Science (AI) at USC in December 2026. Most recently I built a production AI microservice at SnapRefund; before that I spent two and a half years at Whirlpool shipping machine-learning systems onto more than a million smart appliances.",
+    "I like the whole arc of a system: the distributed backend, the inference runtime, and the CUDA kernels and memory layout that decide whether something is fast enough to ship. Lately that has meant a fault-tolerant object store with a from-scratch Raft engine, a C++ transformer runtime, and LLM work like retrieval platforms and difficulty-aware reasoning.",
+    "I care about performance you can measure, code that stays readable, and building things that actually reach people. When I'm not shipping, I'm playing soccer, learning pickleball, or over-engineering a matcha recipe.",
+  ],
   email: 'ssgore18@gmail.com',
   phone: '+1 310-462-7354',
   linkedin: 'https://linkedin.com/in/snehal-gore',
@@ -77,6 +85,7 @@ export const experience: ExperienceItem[] = [
     role: 'Software Engineer Intern',
     location: 'Los Angeles, CA',
     period: 'May 2026 – Aug 2026',
+    summary: 'Built and shipped production AI and backend features at an early-stage InsurTech startup.',
     bullets: [
       'Architected and deployed AiSnap, a production AI microservice using Gemini function calling over live PostgreSQL data spanning 112 ORM entities; exposed database-grounded tools through a NestJS API layer.',
       'Built a validation and grounding pipeline that detected responses lacking query provenance and triggered tool-grounded regeneration, improving reliability for financial queries.',
@@ -90,6 +99,7 @@ export const experience: ExperienceItem[] = [
     role: 'Software Engineer, Machine Learning',
     location: 'Pune, India',
     period: 'Jul 2022 – Dec 2024',
+    summary: 'Owned machine-learning systems end to end, from model to field rollout across 1M+ devices.',
     bullets: [
       'Built and deployed production inference frameworks across 1M+ smart appliances, eliminating $250K+/year in cloud inference costs while delivering 3× lower latency.',
       'Owned production systems end to end: model optimization, automated pipelines, OTA rollouts, field evaluation, and production monitoring; mentored interns on development and deployment.',

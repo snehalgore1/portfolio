@@ -12,7 +12,11 @@ export function About() {
           <h2 className="font-serif text-[2rem] font-semibold leading-[1.08] text-espresso sm:text-5xl">
             A real person behind the terminal
           </h2>
-          <p className="mt-6 text-lg leading-relaxed text-cocoa">{profile.summary}</p>
+          <div className="mt-6 space-y-4">
+            {profile.aboutParagraphs.map((para, i) => (
+              <p key={i} className="text-lg leading-relaxed text-cocoa">{para}</p>
+            ))}
+          </div>
           <p className="mt-6 inline-flex items-center gap-2 rounded-full bg-ivory px-4 py-1.5 font-mono text-xs text-cocoa ring-1 ring-matcha/40">
             <span className="h-1.5 w-1.5 rounded-full bg-matcha-deep" />
             {profile.nowNote}
