@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { profile } from '../data/portfolio';
+import { profile, avatars } from '../data/portfolio';
 import { Studio } from './studio/Studio';
 import { AmbientParticles } from './studio/AmbientParticles';
+import { Avatar } from './Avatar';
 import { scrollToSection, type SectionId } from './studio/sections';
 
 interface HeroProps {
@@ -76,6 +77,9 @@ export function Hero({ onOpen, visited, easterEggUnlocked, onEasterEgg, dusk, on
 
       {/* Copy */}
       <div className="relative z-10 mb-2 text-center">
+        <div className="mb-4 flex justify-center">
+          <Avatar src={avatars.hero} alt="Snehal, AI/ML engineer at her laptop" size={112} />
+        </div>
         <div className="mb-4 flex flex-wrap items-center justify-center gap-2">
           {profile.openToWork && (
             <span className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.15em] backdrop-blur-sm transition-colors duration-700 ${
