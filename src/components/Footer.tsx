@@ -1,4 +1,5 @@
-import { profile } from '../data/portfolio';
+import { profile, avatars } from '../data/portfolio';
+import { Avatar } from './Avatar';
 
 export function Footer() {
   return (
@@ -39,6 +40,9 @@ export function Footer() {
       {/* Contact */}
       <footer id="contact" className="scroll-mt-20 border-t border-butter/40 bg-cream/60 py-16">
         <div className="mx-auto max-w-6xl px-5 text-center sm:px-8">
+          <div className="mb-6 flex justify-center">
+            <Avatar src={avatars.footer} alt="Snehal with her dog Julie" size={104} caption="thanks for stopping by" />
+          </div>
           <p className="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-gold">Contact</p>
           <h2 className="font-serif text-[2rem] font-semibold leading-[1.08] text-espresso sm:text-5xl">
             Let's build something

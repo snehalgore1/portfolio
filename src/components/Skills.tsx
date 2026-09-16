@@ -63,7 +63,7 @@ export function Skills() {
             <p className="mb-6 max-w-2xl font-serif text-lg italic text-cocoa">{track.blurb}</p>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {track.groups.map((g) => (
-                <div key={g.group} className="rounded-2xl border border-butter/50 bg-ivory p-5">
+                <div key={g.group} className="sparkle-hover rounded-2xl border border-butter/50 bg-ivory p-5 transition-transform duration-300 hover:-translate-y-1">
                   <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.18em] text-gold">{g.group}</h3>
                   <div className="flex flex-wrap gap-1.5">
                     {g.items.map((i) => (

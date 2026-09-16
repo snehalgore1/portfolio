@@ -56,7 +56,7 @@ function ProjectCard({ p, open, onToggle }: { p: Project; open: boolean; onToggl
     <motion.article
       layout
       transition={{ layout: { duration: 0.4, ease: EASE } }}
-      className={`flex h-full flex-col rounded-2xl border bg-cream/60 p-6 ${
+      className={`sparkle-hover flex h-full flex-col rounded-2xl border bg-cream/60 p-6 ${
         open ? 'border-gold shadow-[var(--shadow-lg)]' : 'border-butter/50 hover:border-gold hover:shadow-[var(--shadow-lg)]'
       }`}
       whileHover={open ? undefined : { y: -6 }}

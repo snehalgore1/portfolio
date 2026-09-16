@@ -40,7 +40,7 @@ export function Studio({ onOpen, visited, hintId, spotlightId, parallax, easterE
       className="mx-auto h-auto w-full"
       style={{ maxHeight: '40svh' }}
       role="img"
-      aria-label="An illustrated yellow studio desk with a laptop, notebook, folder, resume, envelope, and a coffee mug you can explore."
+      aria-label="An illustrated yellow studio desk with a laptop, notebook, folder, resume, envelope, and a matcha cup you can explore."
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
@@ -278,12 +278,12 @@ export function Studio({ onOpen, visited, hintId, spotlightId, parallax, easterE
           </g>
         </StudioObject>
 
-        {/* Coffee mug - easter egg (clickable once everything explored) */}
+        {/* Matcha cup - easter egg (clickable once everything explored) */}
         <g
           className={easterEggUnlocked ? 'studio-obj' : ''}
           role={easterEggUnlocked ? 'button' : undefined}
           tabIndex={easterEggUnlocked ? 0 : undefined}
-          aria-label={easterEggUnlocked ? 'A little surprise: open the recipe card' : undefined}
+          aria-label={easterEggUnlocked ? 'A little surprise: open the hidden terminal' : undefined}
           onClick={easterEggUnlocked ? onEasterEgg : undefined}
           onKeyDown={
             easterEggUnlocked
@@ -299,12 +299,16 @@ export function Studio({ onOpen, visited, hintId, spotlightId, parallax, easterE
           <g className="studio-obj-body">
             <g transform="translate(585 388)">
               <g className="anim-steam">
-                <path d="M14 -6 q6 -8 0 -16" fill="none" stroke="#d9c48a" strokeWidth="3" strokeLinecap="round" />
-                <path d="M26 -6 q-6 -8 0 -16" fill="none" stroke="#d9c48a" strokeWidth="3" strokeLinecap="round" />
+                <path d="M14 -6 q6 -8 0 -16" fill="none" stroke="#bcd39a" strokeWidth="3" strokeLinecap="round" />
+                <path d="M26 -6 q-6 -8 0 -16" fill="none" stroke="#bcd39a" strokeWidth="3" strokeLinecap="round" />
               </g>
-              <rect x="4" y="4" width="34" height="32" rx="6" fill="#f4c542" />
-              <rect x="4" y="4" width="34" height="9" rx="4" fill="#e0b02f" />
-              <path d="M38 12 q14 2 0 18" fill="none" stroke="#e0b02f" strokeWidth="5" />
+              {/* cream cup */}
+              <rect x="4" y="6" width="34" height="30" rx="7" fill="#fffaf0" stroke="#e6d8b8" strokeWidth="1.5" />
+              {/* matcha surface */}
+              <ellipse cx="21" cy="10" rx="16" ry="4.5" fill="#9db97e" />
+              <ellipse cx="21" cy="10" rx="16" ry="4.5" fill="none" stroke="#6f8f57" strokeWidth="1" opacity="0.5" />
+              {/* handle */}
+              <path d="M38 14 q13 2 0 16" fill="none" stroke="#e6d8b8" strokeWidth="4.5" />
               {easterEggUnlocked && <text x="46" y="0" fontSize="16">✨</text>}
             </g>
           </g>

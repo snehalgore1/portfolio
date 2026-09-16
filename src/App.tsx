@@ -12,6 +12,7 @@ import { Footer } from './components/Footer';
 import { AppLoader } from './components/ui/AppLoader';
 import { StudioModal } from './components/studio/StudioModal';
 import { MiniTerminal } from './components/MiniTerminal';
+import { TakeABreak } from './components/TakeABreak';
 import { sectionOrder, type SectionId } from './components/studio/sections';
 
 const reduceMotion = () =>
@@ -114,6 +115,8 @@ export default function App() {
       )}
 
       {terminalOpen && <MiniTerminal onClose={() => setTerminalOpen(false)} />}
+
+      <TakeABreak />
     </MotionConfig>
   );
 }

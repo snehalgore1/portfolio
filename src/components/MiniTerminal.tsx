@@ -61,7 +61,7 @@ export function MiniTerminal({ onClose }: MiniTerminalProps) {
           { type: 'out', text: '  contact       how to reach me' },
           { type: 'out', text: '  resume        open my resume' },
           { type: 'out', text: '  fun           life outside the terminal' },
-          { type: 'out', text: '  coffee        essential' },
+          { type: 'out', text: '  matcha        essential' },
           { type: 'out', text: '  clear         wipe the screen' },
         );
         break;
@@ -103,14 +103,15 @@ export function MiniTerminal({ onClose }: MiniTerminalProps) {
         personal.sports.forEach((s) => out.push({ type: 'out', text: `• ${s.label} (${s.note})` }));
         out.push({ type: 'out', text: `• ${personal.cooking}` });
         break;
+      case 'matcha':
       case 'coffee':
         out.push(
           { type: 'out', text: '      ( (' },
           { type: 'out', text: '       ) )' },
           { type: 'out', text: '    ........' },
-          { type: 'out', text: '    |      |]' },
+          { type: 'out', text: '    | 🍵   |]' },
           { type: 'out', text: '    \\      /' },
-          { type: 'out', text: "     `----'   always." },
+          { type: 'out', text: "     `----'   always matcha." },
         );
         break;
       case 'sudo':

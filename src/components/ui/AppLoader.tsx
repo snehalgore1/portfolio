@@ -13,10 +13,10 @@ export function AppLoader({ leaving }: AppLoaderProps) {
       }`}
     >
       <div className="relative h-16 w-16">
-        <div className="loader-ring absolute inset-0 rounded-full border-4 border-cream border-t-butter-deep" />
-        <span className="absolute inset-0 flex items-center justify-center text-2xl">☕</span>
+        <div className="loader-ring absolute inset-0 rounded-full border-4 border-cream border-t-matcha-deep" />
+        <span className="absolute inset-0 flex items-center justify-center text-2xl">🍵</span>
       </div>
-      <p className="mt-5 font-serif text-lg italic text-cocoa">Warming up the studio…</p>
+      <p className="mt-5 font-serif text-lg italic text-cocoa">Steeping the matcha…</p>
     </div>
   );
 }

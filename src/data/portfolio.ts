@@ -367,6 +367,16 @@ export const skillTracks: SkillTrack[] = [
   },
 ];
 
+// Situational avatars. Drop illustrations into /public/avatars and fill the
+// paths below; empty strings show a branded placeholder until then.
+// e.g. hero: `${import.meta.env.BASE_URL}avatars/hero.png`
+export const avatars = {
+  hero: '',
+  about: '',
+  hobbies: '',
+  footer: '',
+};
+
 // Personality: subtle, never the main content. Only what the brief allows.
 export const personal = {
   heading: 'Besides work, I like doing these things',
