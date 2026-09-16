@@ -371,10 +371,10 @@ export const skillTracks: SkillTrack[] = [
 // paths below; empty strings show a branded placeholder until then.
 // e.g. hero: `${import.meta.env.BASE_URL}avatars/hero.png`
 export const avatars = {
-  hero: '',
-  about: '',
-  hobbies: '',
-  footer: '',
+  hero: `${import.meta.env.BASE_URL}avatars/hero.jpg`,
+  about: `${import.meta.env.BASE_URL}avatars/about.jpg`,
+  hobbies: `${import.meta.env.BASE_URL}avatars/hobbies.jpg`,
+  footer: `${import.meta.env.BASE_URL}avatars/footer.jpg`,
 };
 
 // Personality: subtle, never the main content. Only what the brief allows.
